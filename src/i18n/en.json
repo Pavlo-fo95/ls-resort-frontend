@@ -1,0 +1,82 @@
+{
+  "brand": "Resort Studio",
+  "menu": {
+    "massage": "Massage",
+    "training": "Training",
+    "herbs": "Herbs",
+    "about": "About",
+    "reviews": "Reviews",
+    "bookViber": "Book via Viber"
+  },
+  "viber": {
+    "iryna": "Iryna",
+    "serhii": "Serhii",
+    "group": "Group"
+  },
+  "hero": {
+    "title": "We are the path to recovery",
+    "subtitle": "A city resort — without long trips",
+    "cta": "Book via Viber",
+    "secondary": "Learn more"
+  },
+  "philosophy": {
+    "brand": "LS ∞ Resort Studio",
+    "text": "where the body and nervous system find balance again."
+  },
+  "home": {
+    "aboutTitle": "LS ∞ Resort Studio",
+    "aboutP1": "is a space for body and nervous system recovery.",
+    "aboutP2": "We combine yoga therapy, massage, and bodywork so you can recover in your usual rhythm of life — without long trips or resorts.",
+    "sections": {
+      "massageTitle": "Massage",
+      "massageText": "Therapeutic, Thai and visceral massage practices.",
+      "trainingTitle": "Training",
+      "trainingText": "Formats for home, studio, and anti-stress.",
+      "herbsTitle": "Herbs",
+      "herbsText": "Author herbal collections and recommendations.",
+      "aboutTitle": "About us",
+      "aboutText": "Experience, philosophy, and certifications.",
+      "reviewsTitle": "Reviews",
+      "reviewsText": "Client feedback and real stories."
+    },
+    "actions": {
+      "details": "Details →",
+      "formats": "Training formats →",
+      "collections": "Herbal collections →",
+      "orderViber": "Order via Viber"
+    }
+  },
+  "pages": {
+    "massage": {
+      "heroTitle": "Massage",
+      "heroSubtitle": "Therapeutic, Thai and visceral practices.",
+      "topTitle": "Massage",
+      "topLead": "Therapeutic, Thai and visceral practices — gently, carefully, without rush.",
+      "directionsTitle": "Directions",
+      "dir1Title": "Therapeutic massage",
+      "dir1Text": "For back, neck, overall recovery and relaxation.",
+      "dir2Title": "Thai massage",
+      "dir2Text": "Mobility, stretching, feeling light in the body.",
+      "dir3Title": "Visceral practices",
+      "dir3Text": "Gentle work with abdomen and breathing for balance.",
+      "howTitle": "How the session goes",
+      "step1": "Short intro and your request: what bothers you, what you feel in the body.",
+      "step2": "The process (gently, with respect to boundaries).",
+      "step3": "After-care tips: water / rest / light movements.",
+      "bookTitle": "Booking",
+      "bookText": "Fastest way — message on Viber. Include: name, request, suitable days/time.",
+      "actions": {
+        "bookViber": "Book via Viber",
+        "backHome": "← Back to Home",
+        "seeHomeBlock": "See block on Home"
+      }
+    }
+  },
+  "footer": {
+    "tagline": "A city resort — without long trips",
+    "contactsTitle": "Contacts",
+    "socialTitle": "Social media",
+    "addressNote": "Address will be added later",
+    "rights": "All rights reserved."
+  }
+}
