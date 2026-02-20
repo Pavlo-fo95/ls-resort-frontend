@@ -1,0 +1,159 @@
+/* =========================
+   OVERLAYS (Popover / Mega / Modal / Z-index)
+   ========================= */
+
+/* Z-INDEX RULES */
+.header{ z-index: 50; }
+.popover{ z-index: 9998; }
+.modalOverlay{ z-index: 9999; }
+.drawer{ z-index: 1000; } /* mobile menu */
+
+/* POPUP mega-menu */
+.mega{
+  width: min(560px, calc(100vw - 24px));
+  border-radius: 18px;
+  background: rgba(22, 26, 36, 0.68);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 18px 60px rgba(0,0,0,0.35);
+  overflow: hidden;
+  color: #fff;
+}
+
+.mega__grid{
+  padding: 16px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.mega__title{
+  font-weight: 900;
+  font-size: 18px;
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+
+.mega__item{
+  display: block;
+  padding: 12px 12px;
+  border-radius: 14px;
+  text-decoration: none;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.06);
+}
+
+.mega__item:hover{
+  background: rgba(255,255,255,0.10);
+}
+
+.mega__itemTitle{ font-weight: 900; }
+.mega__itemDesc{ opacity: .82; font-size: 13px; margin-top: 2px; }
+
+.mega__side{
+  padding: 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mega__sideTitle{ font-weight: 900; }
+.mega__sideNote{ font-size: 12px; opacity: .8; }
+
+@media (max-width: 720px){
+  .mega{ width: min(560px, calc(100vw - 16px)); }
+}
+
+/* MODAL: “heroPanel” (левый стеклянный блок) */
+.modal--heroPanel .modal{
+  background: transparent;
+  box-shadow: none;
+  border: none;
+}
+
+/* overlay (если есть такой класс в Modal) */
+.modal--heroPanel .modalOverlay{
+  background: rgba(0,0,0,.18);
+  backdrop-filter: blur(2px);
+}
+
+/* panel (поддержка двух вариантов разметки) */
+.modal--heroPanel .modal__panel,
+.modal--heroPanel .modal{
+  position: fixed;
+  left: 44px;
+  bottom: 44px;
+  width: min(440px, calc(100vw - 88px));
+  max-height: calc(100vh - 88px);
+
+  border-radius: 18px;
+  padding: 20px 20px 16px;
+
+  background: rgba(22, 26, 36, 0.68);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  box-shadow: 0 18px 60px rgba(0,0,0,.35);
+  overflow: auto;
+}
+
+.modal--heroPanel .modal__head{
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+
+.modal--heroPanel .modal__title{
+  font-weight: 1000;
+  font-size: 42px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+.modal--heroPanel .modal__close{
+  color: rgba(255,255,255,.85);
+}
+
+/* start grid in modal */
+.modal--heroPanel .startGrid{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.modal--heroPanel .startCard{
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 14px;
+  padding: 12px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.modal--heroPanel .startCard:hover{
+  background: rgba(255,255,255,0.10);
+}
+
+.modal--heroPanel .startCard__d{
+  color: rgba(255,255,255,.82);
+}
+
+/* mobile modal */
+@media (max-width: 640px) {
+  .modal--heroPanel .modal__panel,
+  .modal--heroPanel .modal{
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    width: auto;
+    max-height: calc(100vh - 32px);
+  }
+  .modal--heroPanel .modal__title{ font-size: 28px; }
+}

@@ -1,17 +1,35 @@
 {
-  "brand": "Resort Studio",
+  "brand": "Miraculous Wing",
   "menu": {
     "massage": "Massage",
     "training": "Training",
     "herbs": "Herbs",
     "about": "About",
     "reviews": "Reviews",
-    "bookViber": "Book via Viber"
+    "bookViber": "Viber",
+    "schedule": "Schedule",
+    "blog": "Blog",
+    "start": "Start",
+    "login": "Login",
+    "account": "Account",
+    "logout": "Logout"
   },
   "viber": {
     "iryna": "Iryna",
     "serhii": "Serhii",
     "group": "Group"
+  },
+  "account": {
+    "title": "Account",
+    "subtitle": "Your profile, bookings and messages will appear here.",
+    "home": "Home",
+    "logout": "Logout",
+    "profile": "Profile",
+    "quickActions": "Quick actions",
+    "status": "Status",
+    "bookings": "Bookings",
+    "requests": "Requests",
+    "subscription": "Subscription"
   },
   "hero": {
     "title": "We are the path to recovery",
@@ -20,11 +38,11 @@
     "secondary": "Learn more"
   },
   "philosophy": {
-    "brand": "LS ∞ Resort Studio",
+    "brand": "SwanS ∞ miraculous wing - resort studio",
     "text": "where the body and nervous system find balance again."
   },
   "home": {
-    "aboutTitle": "LS ∞ Resort Studio",
+    "aboutTitle": "SwanS ∞ miraculous wing - resort studio",
     "aboutP1": "is a space for body and nervous system recovery.",
     "aboutP2": "We combine yoga therapy, massage, and bodywork so you can recover in your usual rhythm of life — without long trips or resorts.",
     "sections": {

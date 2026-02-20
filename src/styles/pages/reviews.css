@@ -1,0 +1,231 @@
+/* =========================
+   REVIEWS PAGE
+   ========================= */
+/* PAGE ONLY */
+.reviewsPage .cardsGrid{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+@media (max-width: 860px){
+  .reviewsPage .cardsGrid{ grid-template-columns: 1fr; }
+}
+
+/* header */
+.reviewsTop{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:16px;
+  flex-wrap:wrap;
+  margin-bottom: 14px;
+}
+
+.reviewsTitle{
+  margin:0;
+  font-size: clamp(28px, 3.2vw, 44px);
+  letter-spacing: -0.02em;
+  font-weight: 1000;
+}
+
+.reviewsLead{
+  margin: 8px 0 0;
+  color: var(--ink-soft);
+  font-weight: 650;
+}
+
+/* actions row */
+.reviewsActions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+/* filter chips */
+.reviewFilters{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin: 12px 0 18px;
+}
+
+.chip{
+  border-radius: 999px;
+  padding: 8px 12px;
+  border: 1px solid var(--stroke);
+  background: rgba(255,255,255,.65);
+  cursor:pointer;
+  font-weight: 850;
+  transition: transform .12s ease, background .12s ease, border-color .12s ease;
+}
+:root[data-theme="dark"] .chip{
+  background: rgba(255,255,255,.06);
+}
+.chip:hover{ transform: translateY(-1px); }
+.chip--active{
+  border-color: rgba(95,116,255,.55);
+  background: rgba(95,116,255,.12);
+}
+
+/* grid */
+.reviewsGrid{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+@media (max-width: 860px){
+  .reviewsGrid{ grid-template-columns: 1fr; }
+}
+
+/* =========================
+   REVIEW CARD (base)
+   ========================= */
+
+.reviewCard{
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--stroke);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 16px;
+  overflow:hidden;
+}
+
+.reviewCard::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: radial-gradient(900px 220px at 10% -10%,
+    rgba(95,116,255,.12),
+    transparent 60%);
+  pointer-events:none;
+}
+
+.reviewCard__top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom: 10px;
+}
+
+.reviewCard__name{
+  font-weight: 1000;
+  letter-spacing: -0.01em;
+}
+
+.reviewCard__stars{
+  display:flex;
+  gap:2px;
+  font-size: 14px;
+  opacity:.95;
+}
+
+/* text */
+.reviewCard__text{
+  margin: 0;
+  line-height: 1.55;
+  font-weight: 650;
+  color: var(--ink);
+}
+
+/* footer meta */
+.reviewCard__meta{
+  display:flex;
+  gap: 8px;
+  flex-wrap:wrap;
+  margin-top: 12px;
+}
+
+/* sentiment tag */
+.sentimentTag{
+  display:inline-flex;
+  align-items:center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 950;
+  border: 1px solid var(--stroke);
+  background: rgba(255,255,255,.55);
+}
+:root[data-theme="dark"] .sentimentTag{
+  background: rgba(255,255,255,.06);
+}
+
+.sentimentDot{
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+}
+
+/* =========================
+   SENTIMENT THEMES
+   ========================= */
+
+/* ✅ POSITIVE (мята + чуть синего) */
+.reviewCard--positive{
+  border-color: rgba(16,185,129,.28);
+}
+.reviewCard--positive::before{
+  background: radial-gradient(900px 260px at 10% -10%,
+    rgba(16,185,129,.16),
+    transparent 55%),
+    radial-gradient(900px 260px at 90% 0%,
+    rgba(95,116,255,.10),
+    transparent 60%);
+}
+.reviewCard--positive .sentimentTag{
+  border-color: rgba(16,185,129,.35);
+  background: rgba(16,185,129,.10);
+}
+.reviewCard--positive .sentimentDot{ background: #10b981; }
+
+/* ➖ NEUTRAL (теплый песок, “спокойно”) */
+.reviewCard--neutral{
+  border-color: rgba(245,158,11,.22);
+}
+.reviewCard--neutral::before{
+  background: radial-gradient(900px 260px at 10% -10%,
+    rgba(245,158,11,.14),
+    transparent 58%);
+}
+.reviewCard--neutral .sentimentTag{
+  border-color: rgba(245,158,11,.30);
+  background: rgba(245,158,11,.10);
+}
+.reviewCard--neutral .sentimentDot{ background: #f59e0b; }
+
+/* ⚠️ NEGATIVE (коралл, но мягко) */
+.reviewCard--negative{
+  border-color: rgba(255,107,107,.28);
+}
+.reviewCard--negative::before{
+  background: radial-gradient(900px 260px at 10% -10%,
+    rgba(255,107,107,.14),
+    transparent 58%);
+}
+.reviewCard--negative .sentimentTag{
+  border-color: rgba(255,107,107,.35);
+  background: rgba(255,107,107,.10);
+}
+.reviewCard--negative .sentimentDot{ background: #ff6b6b; }
+
+/* "Other" */
+.reviewCard--other .sentimentTag{
+  opacity: .85;
+}
+
+/* tiny label like "featured" */
+.pill{
+  display:inline-flex;
+  align-items:center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+  border: 1px solid var(--stroke);
+  background: rgba(255,255,255,.55);
+}
+:root[data-theme="dark"] .pill{ background: rgba(255,255,255,.06); }

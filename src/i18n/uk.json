@@ -1,17 +1,33 @@
 {
-  "brand": "Resort Studio",
+  "brand": "Miraculous Wing",
   "menu": {
     "massage": "Масаж",
     "training": "Тренування",
     "herbs": "Трави",
     "about": "Про нас",
     "reviews": "Відгуки",
-    "bookViber": "Запис у Viber"
+    "bookViber": "Viber",
+    "schedule": "Розклад",
+    "blog": "Блог",
+    "start": "Почати",
+    "login": "Увійти"
   },
   "viber": {
     "iryna": "Ірина",
     "serhii": "Сергій",
     "group": "Група"
+  },
+  "account": {
+    "title": "Кабінет",
+    "subtitle": "Тут буде профіль, бронювання та історія звернень.",
+    "home": "На головну",
+    "logout": "Вийти",
+    "profile": "Профіль",
+    "quickActions": "Швидкі дії",
+    "status": "Статус",
+    "bookings": "Бронювань",
+    "requests": "Звернень",
+    "subscription": "Абонемент"
   },
   "hero": {
     "title": "Ми — шлях до відновлення",
@@ -20,11 +36,11 @@
     "secondary": "Дізнатись більше"
   },
   "philosophy": {
-    "brand": "LS ∞ Resort Studio",
+    "brand": "SwanS ∞ miraculous wing - resort studio",
     "text": "де тіло і нервова система знову знаходять баланс."  
   },
   "home": {
-    "aboutTitle": "LS ∞ Resort Studio",
+    "aboutTitle": "SwanS ∞ miraculous wing - resort studio",
     "aboutP1": "— це простір відновлення тіла і нервової системи.",
     "aboutP2": "Ми поєднуємо йогатерапію, масаж і роботу з тілом так, щоб ви могли відновитись у звичному ритмі життя — без далеких доріг і курортів.",
     "sections": {

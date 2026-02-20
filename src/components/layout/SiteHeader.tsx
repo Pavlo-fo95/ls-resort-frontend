@@ -18,7 +18,7 @@ type ViberLinks = {
   group: string;
 };
 
-export default function SiteHeader({ brandText = "" }: Props) {
+export default function SiteHeader({ brandText = "Miraculous Wing" }: Props) {
   const [openMenu, setOpenMenu] = useState<MenuKey | null>(null);
   const [startOpen, setStartOpen] = useState(false);
   const [anchorRect, setAnchorRect] = useState<AnchorRect | null>(null);
@@ -29,13 +29,13 @@ export default function SiteHeader({ brandText = "" }: Props) {
   const [viberOpen, setViberOpen] = useState(false);
 
    // TODO: заменить на реальную авторизацию
-  const isAuthed = false; 
+
   const cartCount = 0;
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const onAccountClick = () => {
-    navigate(isAuthed ? "/account" : "/auth");
+    navigate(me ? "/account" : "/auth");
   };
 
   const onCartClick = () => {
@@ -100,15 +100,46 @@ export default function SiteHeader({ brandText = "" }: Props) {
     setStartOpen(false);
   };
 
+  const onLogout = () => {
+    // 1) убираем токены/сессию (подстрой под свои ключи)
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+
+    // если ты хранишь что-то ещё:
+    localStorage.removeItem("token");
+    localStorage.removeItem("me");
+
+    // 2) закрываем попапы/меню
+    closeAll();
+
+    // 3) уводим на вход и обновляем состояние (быстрый 100% вариант)
+    navigate("/auth");
+    window.location.reload();
+  };
+  
   return (
     <>
       <header className={`header ${scrolled ? "header--solid" : ""}`}>
         <div className="header__inner">
-          {/* BRAND */}
-          <Link className="brand" to="/" onClick={closeAll} aria-label="На головну">
-            <img className="brand__logo" src={logo} alt="LS ∞ Resort Studio" />
-            <span className="brand__text">{brandText}</span>
+          <Link
+            className="brand"
+            to="/"
+            onClick={closeAll}
+            aria-label="На головну"
+          >
+            <span className="brand__badge">
+              <img
+                className="brand__logo"
+                src={logo}
+                alt=""
+              />
+            </span>
+
+            <span className="brand__text">
+              Miraculous Wing {brandText}
+            </span>
           </Link>
+
 
           {/* NAV (desktop) */}
           <nav className="nav nav--desktop" aria-label="Навігація">
@@ -143,10 +174,18 @@ export default function SiteHeader({ brandText = "" }: Props) {
             <NavLink to="/about" onClick={closeAll}>
               {t("menu.about")}
             </NavLink>
+
+            <NavLink to="/schedule" onClick={closeAll}>
+              {t("menu.schedule")}
+            </NavLink>
+
+            <NavLink to="/blog" onClick={closeAll}>
+              {t("menu.blog")}
+            </NavLink>
+
             <NavLink to="/reviews" onClick={closeAll}>
               {t("menu.reviews")}
             </NavLink>
-
             {/* “Почати” — Modal */}
             <button
               type="button"
@@ -157,16 +196,27 @@ export default function SiteHeader({ brandText = "" }: Props) {
                 setViberOpen(false);
               }}
             >
-              Почати
+              {t("menu.start")}
             </button>
             <div className="header__actions">
               {!me ? (
-                <Link className="btn btn--primary" to="/auth">Увійти</Link>
+                <Link className="btn btn--primary" to="/auth" onClick={closeAll}>
+                  {t("menu.login")}
+                </Link>
               ) : (
                 <>
-                  <Link className="btn btn--primary" to="/account">Кабінет</Link>
+                  <Link className="btn btn--primary" to="/account" onClick={closeAll}>
+                    {t("menu.account")}
+                  </Link>
+
+                  <button className="btn btn--ghost" type="button" onClick={onLogout}>
+                    {t("menu.logout")}
+                  </button>
+
                   {me.role === "admin" && (
-                    <Link className="btn btn--ghost" to="/admin/inbox">Адмін</Link>
+                    <Link className="btn btn--ghost" to="/admin/inbox" onClick={closeAll}>
+                      Адмін
+                    </Link>
                   )}
                 </>
               )}

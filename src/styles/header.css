@@ -1,0 +1,392 @@
+/* =========================
+   HEADER
+   ========================= */
+
+.header{
+  position: fixed;
+  top:0; left:0; right:0;
+  z-index: 50;
+  padding: 14px 22px;
+  transition: background .2s ease, border-color .2s ease, backdrop-filter .2s ease;
+
+  /* видно и ДО скролла */
+  background: linear-gradient(
+    to bottom,
+    rgba(7, 22, 48, 0.55),
+    rgba(7, 22, 48, 0.18),
+    rgba(7, 22, 48, 0)
+  );
+}
+
+.header--solid{
+  background: rgba(7, 22, 48, .72);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,.10);
+}
+
+.header__inner{
+  max-width: 1100px;
+  margin: 0 auto;
+  display:flex;
+  align-items:center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+/* BRAND */
+.brand{
+  display:flex;
+  align-items:center;
+  gap: 12px;
+  text-decoration:none;
+  flex: 0 0 auto;
+  min-width: 0;
+}
+
+.brand__badge{
+  width:64px;
+  height:64px;
+  border-radius:999px;
+  overflow:hidden;
+  flex-shrink:0;
+
+  border:1px solid rgba(255,255,255,.25);
+  background: rgba(255,255,255,.10);
+  backdrop-filter: blur(10px);
+
+  display:grid;
+  place-items:center;
+  transition: transform .2s ease, background .2s ease;
+}
+
+.brand__logo{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.brand__text{
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 20px;
+  letter-spacing: 1px;
+  color: #f2e8da;
+  white-space: nowrap;
+  overflow:hidden;
+  text-overflow: ellipsis;
+  max-width: 280px;
+}
+
+.brand:hover .brand__badge{
+  transform: scale(1.03);
+  background: rgba(255,255,255,.14);
+}
+
+/* NAV desktop */
+.nav{
+  display:flex;
+  align-items:center;
+  gap: 14px;
+}
+
+.nav--desktop{
+  order: 3;
+  width: 100%;
+  flex: 1 1 auto;
+  display:flex;
+  align-items:center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 8px;     
+}
+
+.nav a,
+.nav__btn{
+  color: var(--milk-strong);
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 14px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  line-height: 1;
+  white-space: normal; 
+}
+
+.nav__btn{
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.nav a:hover,
+.nav__btn:hover{
+  color:#fff;
+  background: rgba(255,255,255,.10);
+}
+
+.nav a.active{
+  color:#fff;
+  background: rgba(255,255,255,.14);
+  text-decoration: none;
+}
+
+/* header actions block (Login / Account / Admin) */
+.header__actions{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+}
+
+/* language switch */
+.langSwitch{
+  display:flex;
+  align-items:center;
+  gap: 8px;
+  margin-left: 6px;
+}
+
+.langSwitch button{
+  background: transparent;
+  border: none;
+  color: rgba(255,255,255,.82);
+  font-weight: 800;
+  cursor: pointer;
+  opacity: .8;
+  padding: 6px 8px;
+  border-radius: 999px;
+}
+
+.langSwitch button:hover{
+  opacity: 1;
+  background: rgba(255,255,255,.08);
+}
+
+/* Viber dropdown */
+.viberMenu{
+  position: relative;
+}
+
+.viberMenu__dropdown{
+  position: absolute;
+  right: 0;
+  top: 44px;
+  min-width: 190px;
+
+  background: rgba(7, 22, 48, .92);
+  border: 1px solid rgba(255,255,255,.10);
+  backdrop-filter: blur(12px);
+  border-radius: 14px;
+  padding: 10px;
+
+  display:flex;
+  flex-direction:column;
+  gap: 8px;
+
+  box-shadow: 0 18px 40px rgba(0,0,0,.25);
+  z-index: 999;
+}
+
+.viberMenu__dropdown a{
+  color: rgba(255,255,255,.92);
+  text-decoration: none;
+  font-weight: 800;
+  padding: 10px 10px;
+  border-radius: 12px;
+  background: rgba(255,255,255,.06);
+}
+
+.viberMenu__dropdown a:hover{
+  background: rgba(255,255,255,.10);
+  color:#fff;
+}
+
+/* RIGHT: icons + burger */
+.header__right{
+  flex: 0 0 auto;
+  margin-left: auto;
+  display:flex;
+  align-items:center;
+  gap: 10px;
+}
+
+.headerActions{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+}
+
+/* icon buttons */
+.iconBtn{
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.10);
+  color: var(--milk-strong);
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+  transition: transform .12s ease, background .12s ease;
+}
+
+.iconBtn:hover{
+  transform: translateY(-1px);
+  background: rgba(255,255,255,.14);
+}
+
+.iconBtn--small{
+  width: 34px;
+  height: 34px;
+}
+
+/* cart badge ONLY (не путать с roleBadge из components.css) */
+.badge{
+  position:absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--coral);
+  color: #0b1630;
+  font-size: 12px;
+  font-weight: 900;
+  display:grid;
+  place-items:center;
+  border: 2px solid rgba(7,22,48,.55);
+}
+
+/* burger */
+.burger{
+  display:none;
+  width:44px;
+  height:40px;
+  border-radius:12px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+  cursor:pointer;
+}
+
+.burger span{
+  display:block;
+  height:2px;
+  width:18px;
+  margin:4px auto;
+  background:#fff;
+  border-radius:2px;
+}
+
+/* search popover */
+.searchPopover{
+  position: fixed;
+  top: 74px;
+  right: 22px;
+  width: min(420px, calc(100vw - 44px));
+  z-index: 200;
+
+  background: rgba(22, 26, 36, 0.72);
+  border: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(14px);
+  border-radius: 18px;
+  padding: 12px;
+  color: #fff;
+  box-shadow: 0 18px 60px rgba(0,0,0,0.35);
+}
+
+.searchPopover__row{
+  display:flex;
+  gap: 10px;
+  align-items:center;
+}
+
+.searchInput{
+  flex:1;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.10);
+  color:#fff;
+  padding: 10px 12px;
+  outline:none;
+}
+
+.searchInput::placeholder{
+  color: rgba(255,255,255,.65);
+}
+
+.searchPopover__hint{
+  margin-top: 10px;
+  font-size: 12px;
+  opacity: .8;
+}
+
+/* Drawer (mobile) */
+.drawer{
+  position: fixed;
+  inset:0;
+  z-index: 1000;
+}
+
+.drawer__backdrop{
+  position:absolute;
+  inset:0;
+  background: rgba(0,0,0,.40);
+}
+
+.drawer__panel{
+  position:absolute;
+  right: 14px;
+  top: 14px;
+  width: min(360px, calc(100% - 28px));
+
+  background: rgba(7, 22, 48, .92);
+  border: 1px solid rgba(255,255,255,.10);
+  backdrop-filter: blur(12px);
+  border-radius: 18px;
+  padding: 16px;
+  color:#fff;
+}
+
+.drawer__links{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  padding: 10px 0 14px;
+}
+
+.drawer__links a{
+  color: rgba(255,255,255,.92);
+  text-decoration:none;
+  font-weight:800;
+}
+
+.drawer__links a:hover{
+  color:#fff;
+}
+
+/* responsive */
+@media (max-width: 1100px){
+  .nav--desktop{
+    flex-wrap: wrap;
+  }
+@media (max-width: 1100px){
+  .nav--desktop{
+    flex-wrap: wrap;
+   }
+  }
+  .burger{
+    display:block;
+  }
+  .brand__badge{
+    width:52px;
+    height:52px;
+  }
+  .brand__text{
+    font-size:16px;
+    max-width: 180px;
+  }
+}

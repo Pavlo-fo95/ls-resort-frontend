@@ -2,12 +2,37 @@ import { Link } from "react-router-dom";
 import { viberLinks } from "../config/contacts";
 import PageHero from "../components/sections/PageHero";
 
+const HERBS = [
+  {
+    id: "pyaterchatka",
+    title: "Сбір «П’ятерчатка»",
+    short: "Антипаразитарний і протизапальний мікс з насіння та спецій. Не потребує заварювання.",
+    bullets: [
+      "Підтримка травлення та мікрофлори",
+      "Жовчогінний ефект",
+      "Зручно: 0.5–1 ст.л. 3 рази/день",
+    ],
+    note: "Курс: 1–1.5 місяця. Перед їжею за 20–30 хв.",
+  },
+  {
+    id: "karpatsky",
+    title: "Сбір «Карпатський»",
+    short: "Комплекс трав проти паразитів/інфекцій + відновлення слизової ШКТ. Легко гіркуватий — це ок 🙂",
+    bullets: [
+      "Протизапальний та очищаючий ефект",
+      "М’який жовчогінний",
+      "Подрібнений — без заварювання",
+    ],
+    note: "Підбір схеми прийому — у Viber.",
+  },
+];
+
 export default function HerbsPage() {
   return (
     <div className="page">
       <PageHero
-        title="Трави та харчування"
-        subtitle="Авторські збори та рекомендації."
+        title="Трави та рекомендації"
+        subtitle="Авторські збори та прості поради для підтримки балансу."
         image="/hero/herbs.png"
         viberLink={viberLinks.group}
       />
@@ -16,9 +41,7 @@ export default function HerbsPage() {
         <div className="pageTop">
           <div>
             <h1 className="pageTitle">Трави та рекомендації</h1>
-            <p className="pageLead">
-              Авторські збори та прості поради для підтримки балансу в повсякденному житті.
-            </p>
+            <p className="pageLead">Авторські збори власного приготування. Просто, зрозуміло, під ваш запит.</p>
           </div>
 
           <div className="pageTop__actions">
@@ -32,20 +55,29 @@ export default function HerbsPage() {
         </div>
 
         <section className="section">
-          <h2>Що тут буде</h2>
-          <div className="miniGrid">
-            <article className="miniCard">
-              <h3>Авторські збори</h3>
-              <p>Коротко і зрозуміло: склад, як заварювати, коли приймати.</p>
-            </article>
-            <article className="miniCard">
-              <h3>Підбір під запит</h3>
-              <p>Уточнюємо стан і підбираємо варіант під ваш ритм.</p>
-            </article>
-            <article className="miniCard">
-              <h3>Зручне замовлення</h3>
-              <p>Написали у Viber — узгодили — забрали/отримали.</p>
-            </article>
+          <h2>Збори</h2>
+
+          <div className="cardsGrid">
+            {HERBS.map((h) => (
+              <article className="serviceCard" key={h.id}>
+                <h3 className="serviceCard__title">{h.title}</h3>
+                <p className="serviceCard__text">{h.short}</p>
+
+                <ul className="list">
+                  {h.bullets.map((b) => (
+                    <li key={b}>{b}</li>
+                  ))}
+                </ul>
+
+                <p className="serviceCard__note">{h.note}</p>
+
+                <div className="section__actions">
+                  <a className="btn btn--primary" href={viberLinks.group} target="_blank" rel="noreferrer">
+                    Замовити у Viber
+                  </a>
+                </div>
+              </article>
+            ))}
           </div>
         </section>
 

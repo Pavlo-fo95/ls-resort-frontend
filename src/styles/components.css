@@ -1,0 +1,82 @@
+/* focus */
+input:focus, textarea:focus{
+  outline:none;
+  border-color: rgba(91,124,250,.55);
+  box-shadow: 0 0 0 3px rgba(91,124,250,.15);
+}
+
+.muted{ color: var(--ink-soft); font-weight: 600; }
+
+/* buttons */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  border-radius:999px;
+  padding: 10px 14px;
+  font-weight:800;
+  line-height:1;
+  border: 1px solid var(--stroke);
+  background: rgba(255,255,255,.55);
+  transition: transform .12s ease, background .12s ease, filter .12s ease;
+}
+:root[data-theme="dark"] .btn{ background: rgba(255,255,255,.06); }
+
+.btn:hover{ transform: translateY(-1px); }
+.btn--primary{
+  background: var(--primary);
+  color:#fff;
+  border-color: rgba(95,116,255,.55);
+}
+.btn--ghost{
+  background: transparent;
+}
+
+/* cards */
+.card{
+  background: var(--surface);
+  border: 1px solid var(--stroke);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px;
+}
+.card__head{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:baseline;
+  margin-bottom: 12px;
+}
+.card__head h2{ margin:0; font-size: 20px; }
+.card__foot{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 14px; }
+
+/* role badge (не конфликтует с .badge корзины) */
+.roleBadge{
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-weight: 900;
+  letter-spacing:.2px;
+  color: #fff;
+  display:inline-flex;
+  align-items:center;
+}
+.roleBadge--blue{ background: var(--primary); }
+.roleBadge--coral{ background: var(--coral); color:#0b1630; }
+/* Philosophy / manifest */
+.manifest{
+  max-width: 900px;
+  margin: 64px auto 28px;
+  padding: 0 22px;
+  text-align: center;
+}
+.manifest p{
+  font-size: clamp(20px, 2.2vw, 28px);
+  line-height: 1.45;
+  font-weight: 650;
+  color: #1f3a8a;
+}
+.manifest strong{
+  font-weight: 850;
+  color: #0b1f4d;
+}

@@ -1,0 +1,203 @@
+/* =========================
+   AUTH (Login/Register)
+   ========================= */
+
+.auth{
+  min-height: calc(100vh - 120px);
+  display: grid;
+  place-items: center;
+  padding: 28px 0;
+}
+
+.auth__card{
+  width: min(460px, 100%);
+  background: rgba(255,255,255,.78);
+  border: 1px solid rgba(15,23,42,.10);
+  border-radius: 22px;
+  padding: 18px;
+  box-shadow: 0 18px 60px rgba(0,0,0,.10);
+  backdrop-filter: blur(10px);
+}
+
+.auth__tabs{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  background: rgba(15,23,42,.04);
+  padding: 6px;
+  border-radius: 16px;
+}
+
+.auth__tab{
+  border: 0;
+  background: transparent;
+  padding: 10px 12px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: 900;
+  opacity: .75;
+}
+
+.auth__tab.is-active{
+  background: #fff;
+  opacity: 1;
+  box-shadow: 0 10px 26px rgba(0,0,0,.08);
+}
+
+.auth__title{
+  margin: 14px 0 6px;
+  font-size: 28px;
+  letter-spacing: -0.02em;
+  font-weight: 1000;
+}
+
+.auth__hint{
+  margin: 0 0 14px;
+  color: rgba(11,18,32,.68);
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1.5;
+}
+
+.auth__form{ display: grid; gap: 12px; }
+
+.authField span{
+  display: block;
+  font-size: 12px;
+  color: rgba(11,18,32,.65);
+  margin: 0 0 6px;
+  font-weight: 800;
+}
+
+.authField input,
+.authField textarea{
+  width: 100%;
+  border-radius: 16px;
+  border: 1px solid rgba(15,23,42,.12);
+  padding: 12px 12px;
+  outline: none;
+  background: rgba(255,255,255,.95);
+  color: rgba(11,18,32,.95);
+}
+
+.authField input:focus,
+.authField textarea:focus{
+  outline: none;
+  border-color: rgba(91,124,250,.55);
+  box-shadow: 0 0 0 3px rgba(91,124,250,.14);
+}
+
+.authPass{
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.authPass__btn{
+  border: 1px solid rgba(15,23,42,.12);
+  background: rgba(15,23,42,.04);
+  border-radius: 14px;
+  padding: 10px 12px;
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.auth__row{
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.auth__submit{
+  width: 100%;
+  border-radius: 16px;
+  padding: 12px 14px;
+}
+
+.auth__link{
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  color: var(--primary-2);
+  font-weight: 900;
+}
+
+.auth__divider{
+  position: relative;
+  text-align: center;
+  margin: 2px 0 0;
+  color: rgba(11,18,32,.62);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.auth__divider:before{
+  content:"";
+  position:absolute;
+  left:0; right:0;
+  top:50%;
+  height:1px;
+  background: rgba(15,23,42,.10);
+}
+
+.auth__divider span{
+  position: relative;
+  background: rgba(255,255,255,.78);
+  padding: 0 10px;
+}
+
+.authGoogle{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid rgba(15,23,42,.12);
+  background: #fff;
+  border-radius: 16px;
+  padding: 12px 14px;
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.authGoogle__icon{
+  width: 26px;
+  height: 26px;
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  background: rgba(91,124,250,.12);
+  color: var(--primary-2);
+  font-weight: 1000;
+}
+
+.auth__note{
+  margin: 0;
+  font-size: 13px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(15,23,42,.10);
+  font-weight: 700;
+}
+
+.auth__note.is-ok{ background: rgba(34,197,94,.10); }
+.auth__note.is-error{ background: rgba(239,68,68,.10); }
+
+.auth__bottom,
+.auth__policy{
+  margin: 0;
+  font-size: 12px;
+  color: rgba(11,18,32,.62);
+  text-align: center;
+  font-weight: 650;
+}
+
+.auth__linkInline{
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  color: var(--primary-2);
+  font-weight: 1000;
+}

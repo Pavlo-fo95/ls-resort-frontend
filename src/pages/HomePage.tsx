@@ -3,12 +3,13 @@ import HeroSlider from "../components/sections/HeroSlider";
 import PhilosophyBlock from "../components/sections/PhilosophyBlock";
 import { Link } from "react-router-dom";
 import { endpoints } from "../api/endpoints";
-import type { ServicesResponse, Review, ContactInfo } from "../api/types";
+import type { ServicesResponse, ContactInfo } from "../api/types";
 import { viberLinks } from "../config/contacts";
+import ReviewsPreview from "../components/sections/ReviewsPreview";
 
 export default function HomePage() {
   const [services, setServices] = useState<ServicesResponse | null>(null);
-  const [reviews, setReviews] = useState<Review[]>([]);
+  
   const [contact, setContact] = useState<ContactInfo | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -17,15 +18,13 @@ export default function HomePage() {
 
     const run = async () => {
       try {
-        const [svc, rev, info] = await Promise.all([
+        const [svc, info] = await Promise.all([
           endpoints.getServices(),
-          endpoints.getReviews(6),
           endpoints.getContactInfo(),
         ]);
 
         if (!alive) return;
         setServices(svc);
-        setReviews(rev);
         setContact(info);
       } catch (e: unknown) {
         if (!alive) return;
@@ -44,7 +43,7 @@ export default function HomePage() {
     <div className="page">
       <HeroSlider viberLink={viberLinks.group} />
       <PhilosophyBlock />
-
+      <ReviewsPreview />
       <main className="container">
         {error && <div className="alert">{error}</div>}
 
@@ -87,27 +86,6 @@ export default function HomePage() {
             </a>
           </div>
         </section>
-
-        <section className="section section--alt">
-          <h2>Відгуки</h2>
-          {!reviews.length ? (
-            <p>Поки немає відгуків</p>
-          ) : (
-            <div className="miniGrid">
-              {reviews.map((r) => (
-                <article className="miniCard" key={r.id}>
-                  <h3>{r.author_name}</h3>
-                  <p className="muted">★ {r.rating}/5</p>
-                  <p>{r.text}</p>
-                </article>
-              ))}
-            </div>
-          )}
-          <div className="section__actions">
-            <Link className="btn btn--primary" to="/reviews">Читати всі →</Link>
-          </div>
-        </section>
-
       </main>
     </div>
   );

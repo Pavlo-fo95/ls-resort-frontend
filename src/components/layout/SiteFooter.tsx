@@ -9,7 +9,7 @@ export default function SiteFooter() {
       <div className="footer__inner">
         <div className="footer__brand">
           <div className="footer__logo">
-            <span className="brand__mark">LS</span>
+            <span className="brand__mark">SwanS</span>
             <span className="brand__infty">∞</span>
             {/* если хочешь убрать “Resort Studio” рядом с лого — оставь пусто или t("brand") */}
             <span className="brand__text">{t("brand")}</span>
@@ -23,8 +23,8 @@ export default function SiteFooter() {
           <a className="footer__link" href="tel:+380000000000">
             +38 (000) 000-00-00
           </a>
-          <a className="footer__link" href="mailto:hello@lsresort.studio">
-            hello@lsresort.studio
+          <a className="footer__link" href="mailto:swans@miraculous_wing.studio">
+            swans@miraculous_wing.studio
           </a>
           <div className="footer__muted">{t("footer.addressNote")}</div>
         </div>

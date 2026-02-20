@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import SiteHeader from "./components/layout/SiteHeader";
 import SiteFooter from "./components/layout/SiteFooter";
 import ScrollToHash from "./components/utils/ScrollToHash";
@@ -13,12 +13,18 @@ import ReviewsPage from "./pages/ReviewsPage";
 import CartPage from "./pages/CartPage";
 import AdminInboxPage from "./pages/AdminInboxPage";
 import AccountPage from "./pages/AccountPage";
+import SchedulePage from "./pages/SchedulePage";
+import BlogListPage from "./pages/BlogListPage";
+import BlogPostPage from "./pages/BlogPostPage";
+import AnalyticsTracker from "./components/AnalyticsTracker";
+
 import { RequireAuth, RequireAdmin } from "./routes/guards";
 export default function App() {
   return (
     <BrowserRouter>
       <ScrollToHash />
-
+      <AnalyticsTracker />
+      
       <div className="appShell">
         <SiteHeader brandText="" />
 
@@ -34,6 +40,11 @@ export default function App() {
             <Route path="/about" element={<AboutPage />} />   
             <Route path="/account" element={<RequireAuth><AccountPage /></RequireAuth>} />
             <Route path="/admin/inbox" element={<RequireAdmin><AdminInboxPage /></RequireAdmin>} />
+            <Route path="/" element={<Navigate to="/schedule" replace />} />
+            <Route path="/schedule" element={<SchedulePage />} />
+            <Route path="/blog" element={<BlogListPage />} />
+            <Route path="/blog/:slug" element={<BlogPostPage />} />
+            <Route path="*" element={<div style={{ padding: 24 }}>404</div>} />
           </Routes>
         </main>
 

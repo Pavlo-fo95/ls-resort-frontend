@@ -1,0 +1,14 @@
+@import "./tokens.css";
+@import "./base.css";
+@import "./components.css";
+
+@import "./header.css";
+@import "./footer.css";
+@import "./auth.css";
+@import "./hero.css";
+@import "./overlays.css";
+
+/* pages */
+@import "./pages/account.css";
+@import "./pages/blog.css";
+@import "./pages/reviews.css";
