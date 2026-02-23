@@ -31,7 +31,7 @@ export default function Modal({ open, onClose, title, children, overlayClassName
   if (!open) return null;
 
   return (
-    <div className={`modalOverlay ${overlayClassName ?? ""}`}>
+    <div className={`modalOverlay isOpen ${overlayClassName ?? ""}`}>
       <div className="modal" ref={boxRef}>
         <div className="modal__head">
           <div className="modal__title">{title ?? "Почати"}</div>

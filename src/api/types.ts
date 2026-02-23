@@ -1,7 +1,8 @@
+// ===== services =====
 export type ServiceCategory = "massage" | "training" | "herbs";
 export type ServicesResponse = Record<ServiceCategory, string[]>;
 
-// contact
+// ===== contact =====
 export type ContactInfo = {
   viber: { iryna: string; serhii: string; group: string };
   email: string;
@@ -42,7 +43,7 @@ export type ContactPatchIn = {
   status?: "new" | "closed" | "spam";
 };
 
-// reviews (как на бэке)
+// ===== reviews =====
 export type Review = {
   id: number;
   author_name: string;
@@ -59,7 +60,41 @@ export type ReviewIn = {
   text: string;
 };
 
-// бэк возвращает массив
 export type ReviewsListResponse = Review[];
 
-export type TokenOut = { access_token: string; token_type: string };
+export type TokenOut = {
+  access_token: string;
+  token_type: string;
+};
+
+// ===================================================
+// ==================== SEARCH =======================
+// ===================================================
+
+export type SuggestItem = {
+  title: string;
+  route: string;
+  type: "intent" | "trending" | "recent" | "page";
+  score: number;
+};
+
+export type SuggestResponse = {
+  q: string;
+  lang: "ua" | "ru";
+  items: SuggestItem[];
+  trending: SuggestItem[];
+};
+
+export type SearchLogIn = {
+  query: string;
+  lang: "ua" | "ru";
+  session_id?: string;
+  chosen_route?: string;
+  chosen_item_id?: number;
+};
+
+export type SearchLogOut = {
+  ok: boolean;
+  id: number;
+  created_at: string;
+};

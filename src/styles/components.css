@@ -70,13 +70,17 @@ input:focus, textarea:focus{
   padding: 0 22px;
   text-align: center;
 }
+
 .manifest p{
   font-size: clamp(20px, 2.2vw, 28px);
   line-height: 1.45;
   font-weight: 650;
-  color: #1f3a8a;
+  color: var(--brown-700); /* вместо синего */
 }
+
 .manifest strong{
-  font-weight: 850;
-  color: #0b1f4d;
+  font-weight: 950;
+  color: var(--brown-900);
+  text-transform: uppercase;
+  letter-spacing: .04em;
 }

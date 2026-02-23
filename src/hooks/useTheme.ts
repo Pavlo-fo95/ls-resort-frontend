@@ -4,18 +4,17 @@ export type ThemeMode = "light" | "dark";
 
 export function useTheme() {
   const [theme, setTheme] = useState<ThemeMode>(() => {
-    const saved = (localStorage.getItem("theme") as ThemeMode | null) || null;
-    if (saved === "light" || saved === "dark") return saved;
-    const prefersDark = window.matchMedia?.("(prefers-color-scheme: dark)")?.matches;
-    return prefersDark ? "dark" : "light";
+    const saved = localStorage.getItem("theme") as ThemeMode | null;
+    if (saved === "dark" || saved === "light") return saved;
+    return "light"; // ✅ всегда светлая по умолчанию
   });
 
   useEffect(() => {
-    document.documentElement.dataset.theme = theme; // <html data-theme="dark">
+    document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
   }, [theme]);
 
   const toggleTheme = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
 
-  return { theme, setTheme, toggleTheme };
+  return { theme, toggleTheme, setTheme };
 }

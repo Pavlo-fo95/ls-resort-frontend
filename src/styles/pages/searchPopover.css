@@ -1,0 +1,379 @@
+/* ===== Search Popover (Miraculous Wing) ===== */
+
+.sp__overlay{
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display:flex;
+  align-items:flex-start;
+  justify-content:flex-end;
+  padding: 18px 18px 0;
+  background: rgba(8, 10, 18, .25);
+  backdrop-filter: blur(6px);
+  animation: spFade .18s ease-out;
+}
+
+@keyframes spFade{
+  from{ opacity:0; }
+  to{ opacity:1; }
+}
+
+.sp{
+  width: min(520px, calc(100vw - 24px));
+  border-radius: 18px;
+  background: rgba(16, 20, 34, .78);
+  border: 1px solid rgba(255,255,255,.14);
+  box-shadow: 0 18px 60px rgba(0,0,0,.45);
+  overflow: hidden;
+  transform-origin: top right;
+  animation: spPop .18s ease-out;
+}
+
+@keyframes spPop{
+  from{ transform: translateY(-6px) scale(.98); opacity:.6; }
+  to{ transform: translateY(0) scale(1); opacity:1; }
+}
+
+.sp__top{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  padding: 12px 12px 10px;
+  border-bottom: 1px solid rgba(255,255,255,.10);
+}
+
+.sp__icon{
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  display:grid;
+  place-items:center;
+  color: rgba(255,255,255,.9);
+  background: linear-gradient(135deg, rgba(255,255,255,.14), rgba(255,255,255,.06));
+  border: 1px solid rgba(255,255,255,.12);
+}
+
+.sp__input{
+  flex: 1;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.95);
+  padding: 0 14px;
+  outline: none;
+  font-weight: 650;
+}
+
+.sp__input::placeholder{
+  color: rgba(255,255,255,.55);
+}
+
+.sp__close{
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.9);
+  cursor: pointer;
+}
+
+.sp__close:hover{
+  background: rgba(255,255,255,.10);
+}
+
+.sp__hint{
+  padding: 8px 14px 10px;
+}
+
+.sp__muted{
+  color: rgba(255,255,255,.62);
+  font-size: 12.5px;
+  font-weight: 650;
+}
+
+.sp__list{
+  max-height: min(60vh, 420px);
+  overflow: auto;
+  padding: 4px 6px 10px;
+}
+
+.sp__section{
+  padding: 10px 10px 6px;
+  color: rgba(255,255,255,.70);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.sp__row{
+  width: 100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 10px;
+  text-align:left;
+  padding: 10px 10px;
+  border-radius: 14px;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  color: rgba(255,255,255,.92);
+  transition: .15s ease;
+}
+
+.sp__row:hover{
+  background: rgba(255,255,255,.06);
+  border-color: rgba(255,255,255,.10);
+}
+
+.sp__row.is-active{
+  background: rgba(255,255,255,.10);
+  border-color: rgba(255,255,255,.18);
+}
+
+.sp__rowMain{
+  min-width: 0;
+}
+
+.sp__title{
+  font-weight: 800;
+  font-size: 14px;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sp__route{
+  margin-top: 4px;
+  font-size: 12px;
+  color: rgba(255,255,255,.55);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sp__badge{
+  flex: 0 0 auto;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 900;
+  color: rgba(255,255,255,.92);
+  background: rgba(90, 120, 255, .22); /* под ваш синий */
+  border: 1px solid rgba(90, 120, 255, .35);
+}
+
+.sp__mark{
+  padding: 0 2px;
+  border-radius: 6px;
+  background: rgba(255, 125, 125, .22); /* коралл */
+  color: rgba(255,255,255,.96);
+}
+
+.sp__footer{
+  padding: 10px 14px 12px;
+  border-top: 1px solid rgba(255,255,255,.10);
+  color: rgba(255,255,255,.62);
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.sp__kbd{
+  display:inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.86);
+  font-weight: 900;
+}
+/* ===== Search Popover PRO (Miraculous Wing) ===== */
+
+.searchPopover--pro{
+  /* левее, чем было: */
+  right: 64px;                 /* было 22px */
+  top: 76px;
+
+  width: min(560px, calc(100vw - 40px));
+  border-radius: 18px;
+
+  background: rgba(16, 18, 28, .74);
+  border: 1px solid rgba(255,255,255,.14);
+  backdrop-filter: blur(16px);
+
+  box-shadow: 0 18px 60px rgba(0,0,0,.45);
+  overflow: hidden;
+
+  font-family: "Manrope", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+/* верх */
+.searchPopover--pro .searchPopover__row{
+  padding: 12px;
+  border-bottom: 1px solid rgba(255,255,255,.10);
+}
+
+.searchPopover--pro .searchInput{
+  height: 40px;
+  border-radius: 999px;
+  font-weight: 650;
+  letter-spacing: .01em;
+}
+
+/* hint */
+.searchPopover--pro .searchPopover__hint{
+  padding: 10px 14px 8px;
+  margin: 0;
+  font-size: 12.5px;
+  color: rgba(255,255,255,.65);
+}
+
+/* list */
+.searchPopover--pro .searchPopover__list{
+  max-height: min(60vh, 440px);
+  overflow: auto;
+  padding: 6px 8px 10px;
+}
+
+/* section row */
+.searchPopover__sectionRow{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 10px;
+  padding: 10px 8px 6px;
+}
+
+.searchPopover__section{
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.70);
+}
+
+/* clear button (в секции “Недавние”) */
+.searchPopover__clear{
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.88);
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.searchPopover__clear:hover{
+  background: rgba(255,255,255,.10);
+}
+
+/* item */
+.searchPopover__item{
+  width:100%;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap: 12px;
+
+  text-align:left;
+  padding: 10px 10px;
+  border-radius: 14px;
+
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  transition: .15s ease;
+}
+
+.searchPopover__item:hover{
+  background: rgba(255,255,255,.06);
+  border-color: rgba(255,255,255,.10);
+}
+
+.searchPopover__item.is-active{
+  background: rgba(255,255,255,.10);
+  border-color: rgba(255,255,255,.18);
+}
+
+.searchPopover__itemMain{
+  min-width: 0;
+}
+
+.searchPopover__itemTitle{
+  font-weight: 900;
+  font-size: 14px;
+  line-height: 1.15;
+  color: rgba(255,255,255,.95);
+
+  white-space: nowrap;
+  overflow:hidden;
+  text-overflow: ellipsis;
+}
+
+.searchPopover__itemRoute{
+  margin-top: 4px;
+  font-size: 12px;
+  color: rgba(255,255,255,.55);
+
+  white-space: nowrap;
+  overflow:hidden;
+  text-overflow: ellipsis;
+}
+
+.searchPopover__snippet{
+  margin-top: 6px;
+  font-size: 12.5px;
+  color: rgba(255,255,255,.70);
+  line-height: 1.35;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* badge */
+.searchPopover__badge{
+  flex: 0 0 auto;
+  margin-top: 2px;
+
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 900;
+
+  color: rgba(255,255,255,.92);
+  background: rgba(90, 120, 255, .22);
+  border: 1px solid rgba(90, 120, 255, .35);
+}
+
+/* highlight */
+.searchPopover__mark{
+  padding: 0 2px;
+  border-radius: 6px;
+  background: rgba(255, 125, 125, .22);
+  color: rgba(255,255,255,.98);
+}
+
+/* footer */
+.searchPopover__footer{
+  padding: 10px 14px 12px;
+  border-top: 1px solid rgba(255,255,255,.10);
+  color: rgba(255,255,255,.62);
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.searchPopover__kbd{
+  display:inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.86);
+  font-weight: 900;
+}

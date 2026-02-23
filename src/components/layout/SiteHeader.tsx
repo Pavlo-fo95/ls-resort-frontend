@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import Popover, { type AnchorRect } from "../ui/Popover";
 import Modal from "../ui/Modal";
 import { useMe } from "../../hooks/useMe";
+import SearchPopover from "../SearchPopover";
 
 type MenuKey = "massage" | "training" | "herbs" | "about" | "reviews";
 
@@ -27,7 +28,35 @@ export default function SiteHeader({ brandText = "Miraculous Wing" }: Props) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [viberOpen, setViberOpen] = useState(false);
+  const OPEN_COUNT_KEY = "search_open_count_v1";
+  const OPEN_CLEAR_AFTER = 20;
+  const RECENT_KEY = "search_recent_v2";
 
+  function clearRecent() {
+    localStorage.removeItem(RECENT_KEY);
+  }
+
+  function bumpOpenCountAndMaybeClear() {
+    const raw = localStorage.getItem(OPEN_COUNT_KEY);
+    const n = raw ? Number(raw) : 0;
+    const next = Number.isFinite(n) ? n + 1 : 1;
+
+    if (next >= OPEN_CLEAR_AFTER) {
+      clearRecent();
+      localStorage.setItem(OPEN_COUNT_KEY, "0");
+      return;
+    }
+
+    localStorage.setItem(OPEN_COUNT_KEY, String(next));
+  }
+
+  const onSearchToggle = () => {
+    setIsSearchOpen((v) => {
+      const next = !v;
+      if (next) bumpOpenCountAndMaybeClear(); // ✅ делаем это только при открытии
+      return next;
+    });
+  };
    // TODO: заменить на реальную авторизацию
 
   const cartCount = 0;
@@ -40,10 +69,6 @@ export default function SiteHeader({ brandText = "Miraculous Wing" }: Props) {
 
   const onCartClick = () => {
     navigate("/cart");
-  };
-
-  const onSearchToggle = () => {
-    setIsSearchOpen((v) => !v);
   };
 
   const { t, i18n } = useTranslation();
@@ -312,25 +337,14 @@ export default function SiteHeader({ brandText = "Miraculous Wing" }: Props) {
         )}
 
         {/* popover поиска */}
-        {isSearchOpen && (
-          <div className="searchPopover" role="dialog" aria-label="Search">
-            <div className="searchPopover__row">
-              <input
-                autoFocus
-                placeholder="Пошук…"
-                className="searchInput"
-                onKeyDown={(e) => {
-                  if (e.key === "Escape") setIsSearchOpen(false);
-                }}
-              />
-              <button className="iconBtn iconBtn--small" onClick={() => setIsSearchOpen(false)}>
-                ✕
-              </button>
-            </div>
-
-            <div className="searchPopover__hint">Наприклад: “масаж”, “йога”, “трави”</div>
-          </div>
-        )}
+      <SearchPopover
+        open={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+        lang={i18n.language === "ru" ? "ru" : "ua"}
+      />
+      <button className="iconBtn" type="button" onClick={onSearchToggle} aria-label="Search">
+        <IconSearch />
+      </button>
       </header>
       {/* POPUP: Масаж */}
       <Popover open={openMenu === "massage"} onClose={closePopover} anchorRect={anchorRect}>

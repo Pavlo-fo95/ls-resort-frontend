@@ -1,3 +1,4 @@
+
 @import "./tokens.css";
 @import "./base.css";
 @import "./components.css";
@@ -12,3 +13,7 @@
 @import "./pages/account.css";
 @import "./pages/blog.css";
 @import "./pages/reviews.css";
+@import "./pages/about.css";
+@import "./pages/schedule.css";
+@import "./pages/training.css";
+@import "./pages/searchPopover.css";

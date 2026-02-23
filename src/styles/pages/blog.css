@@ -171,3 +171,16 @@
   }
 }
 @import "./pages/reviews.css";
+
+.pageTop{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap: 12px;
+  flex-wrap:wrap;
+}
+
+.pageTop__actions{
+  display:flex;
+  gap: 10px;
+}

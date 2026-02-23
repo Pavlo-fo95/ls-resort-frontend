@@ -157,3 +157,26 @@
   }
   .modal--heroPanel .modal__title{ font-size: 28px; }
 }
+.modalOverlay{
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.modalOverlay.isOpen{
+  pointer-events: auto;
+  opacity: 1;
+}
+/* СТРАХОВКА: закрытые оверлеи не имеют права ловить клики */
+.modalOverlay{
+  pointer-events: none !important;
+}
+
+/* если модалка реально открыта — тогда разрешаем клики */
+.modalOverlay.isOpen{
+  pointer-events: auto !important;
+}
+
+.modalOverlay{ pointer-events:none !important; }
+.modalOverlay.isOpen{ pointer-events:auto !important; }

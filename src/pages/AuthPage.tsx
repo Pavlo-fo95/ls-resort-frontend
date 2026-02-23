@@ -183,7 +183,7 @@ export default function AuthPage() {
 
             <h1 className="auth__title">{title}</h1>
             <p className="auth__hint">
-              {tab === "login" ? "Повертаємось у студію ✨" : "Створимо акаунт за 30 секунд (майже як магія)."}
+              {tab === "login" ? "Повертаємось у простір Swans✨" : "Створимо акаунт за 30 секунд (майже як магія)."}
             </p>
 
             <form className="auth__form" onSubmit={onSubmit}>

@@ -1,13 +1,47 @@
 import { Link } from "react-router-dom";
-import { viberLinks } from "../config/contacts";
 import PageHero from "../components/sections/PageHero";
+import CallButton from "../components/ui/CallButton";
+import { phones, viberLinks } from "../config/contacts";
+
+type Block = {
+  title: string;
+  subtitle: string;
+  image: string;
+  bullets: string[];
+  scheduleLines: string[];
+};
+
+const blocks: Block[] = [
+  {
+    title: "БЦ «КОНТИНЕНТ» — міні-зал у центрі",
+    subtitle: "Вечірні практики — після роботи, щоб тіло відпустило, а голова перестала шуміти.",
+    image: "/training/continent.jpg",
+    bullets: [
+      "Фокус: спина/шия, мобільність, стабілізація, антистрес",
+      "М’яка й точна робота з тілом + нервовою системою",
+      "Підійде після сидячої роботи та перевантаження",
+    ],
+    scheduleLines: ["Понеділок — 18:00", "Середа — 18:30", "Субота — 14:00"],
+  },
+  {
+    title: "КЛУБ ОМ — Троїцька",
+    subtitle: "Денний слот у вівторок і практика в суботу. Зручно, якщо хочеш регулярність.",
+    image: "/training/om-1.jpg",
+    bullets: [
+      "Формат: група / підтримуюча практика",
+      "Добре заходить, якщо хочеш стабільний ритм",
+      "Збірна робота: дихання + рух + баланс",
+    ],
+    scheduleLines: ["Вівторок — 12:15", "Субота — 14:00"],
+  },
+];
 
 export default function TrainingPage() {
   return (
-    <div className="page">
+    <div className="page trainingPage">
       <PageHero
         title="Йогатерапія та тренування"
-        subtitle="Практики для тіла і нервової системи."
+        subtitle="Два простори. Один фокус — тіло + нервова система."
         image="/hero/yoga_therapy.jpg"
         viberLink={viberLinks.group}
       />
@@ -17,7 +51,8 @@ export default function TrainingPage() {
           <div>
             <h1 className="pageTitle">Йогатерапія та тренування</h1>
             <p className="pageLead">
-              Практики для тіла й нервової системи: м’яко, стабільно, з відчутним результатом.
+              М’яко, стабільно, з відчутним результатом. Без культу «через біль» — ми дорослі, нам
+              таке не треба 😌
             </p>
           </div>
 
@@ -25,52 +60,73 @@ export default function TrainingPage() {
             <a className="btn btn--primary" href={viberLinks.group} target="_blank" rel="noreferrer">
               Запис у Viber
             </a>
-            <Link className="btn" to="/#training">
-              ← На головну
+            <CallButton phone={phones.iryna} className="btn" label="Call" />
+            <Link className="btn" to="/schedule">
+              Розклад →
             </Link>
           </div>
         </div>
 
         <section className="section">
-          <h2>Формати</h2>
-          <div className="miniGrid">
-            <article className="miniCard">
-              <h3>Індивідуально</h3>
-              <p>Під ваш стан і цілі: спина, шия, мобільність, стрес.</p>
-            </article>
-            <article className="miniCard">
-              <h3>Міні-група</h3>
-              <p>Підтримуючий формат, коли важлива регулярність і атмосфера.</p>
-            </article>
-            <article className="miniCard">
-              <h3>Дім / студія</h3>
-              <p>Онлайн або офлайн — під ваш ритм і можливості.</p>
-            </article>
+          <div className="trainingChess">
+            {blocks.map((b, idx) => (
+              <article className={`trainingBlock ${idx % 2 ? "is-reverse" : ""}`} key={b.title}>
+                <div className="trainingBlock__media" style={{ backgroundImage: `url(${b.image})` }}>
+                  <div className="trainingBlock__mediaOverlay" />
+                </div>
+
+                <div className="trainingBlock__content">
+                  <h2 className="trainingBlock__title">{b.title}</h2>
+                  <p className="trainingBlock__sub">{b.subtitle}</p>
+
+                  <ul className="trainingList">
+                    {b.bullets.map((x) => (
+                      <li key={x}>{x}</li>
+                    ))}
+                  </ul>
+
+                  <div className="trainingScheduleMini">
+                    <div className="trainingScheduleMini__title">Час</div>
+                    <div className="trainingScheduleMini__rows">
+                      {b.scheduleLines.map((x) => (
+                        <div className="trainingScheduleMini__row" key={x}>
+                          <span className="dotTiny" aria-hidden />
+                          <span>{x}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="section__actions" style={{ marginTop: 14 }}>
+                    <a className="btn btn--primary" href={viberLinks.group} target="_blank" rel="noreferrer">
+                      Запис у Viber
+                    </a>
+                    <Link className="btn" to="/schedule">
+                      Розклад →
+                    </Link>
+                  </div>
+                </div>
+              </article>
+            ))}
           </div>
         </section>
 
         <section className="section section--alt">
-          <h2>Кому підходить</h2>
-          <ul className="list">
-            <li>Коли є напруга, “затиснуте” тіло, сидяча робота.</li>
-            <li>Коли нервова система перевантажена, хочеться стабільності.</li>
-            <li>Коли потрібна м’яка, але регулярна практика.</li>
-          </ul>
-        </section>
-
-        <section className="section">
-          <h2>Запис</h2>
+          <h2>Вартість</h2>
+          <p className="pageLead" style={{ marginTop: 6 }}>
+            💰 Тренування — <b>250/300 грн</b>
+          </p>
           <p className="muted">
-            Напишіть у Viber: формат (індивідуально/група), зручні дні/час, ваш запит.
+            Напиши: локація (Континент/ОМ), зручний день/час, та коротко твій запит.
           </p>
           <div className="section__actions">
             <a className="btn btn--primary" href={viberLinks.group} target="_blank" rel="noreferrer">
               Написати у Viber
             </a>
+            <CallButton phone={phones.serhii} className="btn" label="Call" />
           </div>
         </section>
       </main>
     </div>
   );
 }
-

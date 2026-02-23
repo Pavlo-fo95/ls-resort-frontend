@@ -1,0 +1,102 @@
+/* =========================
+   TRAINING (chess layout)
+   ========================= */
+
+.trainingChess{
+  display:grid;
+  gap: 16px;
+}
+
+.trainingBlock{
+  display:grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 14px;
+  overflow:hidden;
+
+  border-radius: 22px;
+  border: 1px solid var(--stroke);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.trainingBlock.is-reverse{
+  grid-template-columns: 1fr 1.05fr;
+}
+.trainingBlock.is-reverse .trainingBlock__media{ order: 2; }
+.trainingBlock.is-reverse .trainingBlock__content{ order: 1; }
+
+@media (max-width: 900px){
+  .trainingBlock,
+  .trainingBlock.is-reverse{
+    grid-template-columns: 1fr;
+  }
+  .trainingBlock__media{ min-height: 260px; }
+}
+
+.trainingBlock__media{
+  position: relative;
+  min-height: 320px;
+  background-size: cover;
+  background-position: center;
+}
+.trainingBlock__mediaOverlay{
+  position:absolute;
+  inset:0;
+  background: radial-gradient(
+    80% 60% at 20% 30%,
+    rgba(7,22,48,.55),
+    rgba(7,22,48,.10)
+  );
+}
+
+.trainingBlock__content{
+  padding: 16px;
+}
+
+.trainingBlock__title{
+  margin: 0 0 8px;
+  font-weight: 1000;
+  letter-spacing: -0.02em;
+}
+.trainingBlock__sub{
+  margin: 0 0 12px;
+  color: var(--ink-soft);
+  font-weight: 650;
+  line-height: 1.5;
+}
+
+.trainingList{
+  margin: 0;
+  padding-left: 18px;
+  display:grid;
+  gap: 8px;
+  font-weight: 650;
+}
+
+.trainingScheduleMini{
+  margin-top: 14px;
+  border-top: 1px solid var(--stroke);
+  padding-top: 12px;
+}
+.trainingScheduleMini__title{
+  font-weight: 950;
+  margin-bottom: 8px;
+}
+.trainingScheduleMini__rows{
+  display:grid;
+  gap: 8px;
+}
+.trainingScheduleMini__row{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  font-weight: 700;
+}
+
+.dotTiny{
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--primary);
+  display:inline-block;
+}

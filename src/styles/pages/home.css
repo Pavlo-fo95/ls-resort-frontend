@@ -67,3 +67,6 @@
 .reviewCard--compact .reviewCard__rating span{
   opacity: .95;
 }
+
+.manifest--home p{ color: var(--brown-700); }
+.manifest--home strong{ color: var(--brown-900); }

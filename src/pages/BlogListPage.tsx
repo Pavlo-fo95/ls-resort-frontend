@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 import { blogPosts } from "../data/blogPosts";
 
+const YOUTUBE_URL = "https://www.youtube.com/@ИринаЛебедь-д7р"; 
+// или плейлист: https://www.youtube.com/playlist?list=....
+
 export default function BlogListPage() {
   return (
     <div className="page">
@@ -9,6 +12,18 @@ export default function BlogListPage() {
           <div>
             <h1 className="pageTitle">БЛОГ</h1>
             <p className="pageLead">Короткие статьи, видео и полезные разборы от Ирины.</p>
+          </div>
+
+          <div className="pageTop__actions">
+            <a
+              className="btn btn--soft"
+              href={YOUTUBE_URL}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Открыть YouTube канал"
+            >
+              YouTube ↗
+            </a>
           </div>
         </div>
 

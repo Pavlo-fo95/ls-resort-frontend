@@ -36,6 +36,7 @@ export default function App() {
             <Route path="/massage" element={<MassagePage />} />
             <Route path="/training" element={<TrainingPage />} />
             <Route path="/herbs" element={<HerbsPage />} />
+            <Route path="/recommendations" element={<Navigate to="/herbs" replace />} />
             <Route path="/reviews" element={<ReviewsPage />} />
             <Route path="/about" element={<AboutPage />} />   
             <Route path="/account" element={<RequireAuth><AccountPage /></RequireAuth>} />

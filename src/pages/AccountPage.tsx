@@ -147,7 +147,7 @@ const pvData = useMemo(() => {
             {me && <span className={roleClass}>{roleLabel}</span>}
 
             <button className="btn btn--ghost" type="button" onClick={toggleTheme}>
-              {theme === "dark" ? t("account.themeLight") : t("account.themeDark")}
+              {theme === "dark" ? "Світла тема" : "Темна тема"}
             </button>
 
             <button className="btn btn--ghost" type="button" onClick={() => navigate("/")}>

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { api } from "../../api/client";
 import type { ContactSendIn, SendResponse } from "../../api/types";
+import CallButton from "../ui/CallButton";
+import { phones, viberLinks } from "../../config/contacts";
 
 const initialForm: ContactSendIn = {
   name: "",
@@ -65,7 +67,12 @@ export default function ContactForm() {
         placeholder="Повідомлення / Message"
         rows={5}
       />
-
+      <div className="contactForm__quick">
+        <a className="btn btn--ghost" href={viberLinks.group} target="_blank" rel="noreferrer">
+          Viber
+        </a>
+        <CallButton phone={phones.iryna} className="btn btn--ghost" label="Call" />
+      </div>
       <button className="btn btn--primary" type="submit" disabled={status === "loading"}>
         {status === "loading" ? "..." : "Надіслати"}
       </button>
