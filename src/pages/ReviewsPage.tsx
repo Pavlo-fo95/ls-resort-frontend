@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useEffect, useMemo, useState, useCallback } from "react";
 import PageHero from "../components/sections/PageHero";
+import PageFrame from "../components/PageFrame";
 
 type FilterKey = "all" | "positive" | "neutral" | "negative" | "other";
 
@@ -149,13 +150,14 @@ export default function ReviewsPage() {
   }
   
   return (
-    <div className="page">
+    <PageFrame> 
       <PageHero
         title="Відгуки"
         subtitle="Живі враження клієнтів і результати роботи."
         image="/hero/reviews.png"
       />
-
+    <div className="page">
+   
       <main className="container">
         <div className="pageTop">
           <div>
@@ -283,5 +285,6 @@ export default function ReviewsPage() {
         )}
       </main>
     </div>
+  </PageFrame>
   );
 }

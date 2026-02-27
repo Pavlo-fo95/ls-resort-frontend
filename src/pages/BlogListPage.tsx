@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
 import { blogPosts } from "../data/blogPosts";
+import PageFrame from "../components/PageFrame";
 
 const YOUTUBE_URL = "https://www.youtube.com/@ИринаЛебедь-д7р"; 
 // или плейлист: https://www.youtube.com/playlist?list=....
 
 export default function BlogListPage() {
   return (
+    <PageFrame>
     <div className="page">
       <main className="container section">
         <div className="pageTop">
@@ -45,5 +47,6 @@ export default function BlogListPage() {
         </div>
       </main>
     </div>
+   </PageFrame>
   );
 }

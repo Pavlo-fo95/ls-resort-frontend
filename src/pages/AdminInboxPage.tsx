@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { api } from "../api/client";
 import type { ContactMessage, ContactPatchIn } from "../api/types";
+import PageFrame from "../components/PageFrame";
 
 export default function AdminInboxPage() {
   const [items, setItems] = useState<ContactMessage[]>([]);
@@ -27,6 +28,7 @@ export default function AdminInboxPage() {
       .then(() => load());
 
   return (
+   <PageFrame>
     <div className="container section">
       <h1>Admin Inbox</h1>
       {error && <p style={{ color: "crimson" }}>{error}</p>}
@@ -58,5 +60,6 @@ export default function AdminInboxPage() {
         ))}
       </ul>
     </div>
+   </PageFrame>
   );
 }

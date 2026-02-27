@@ -139,7 +139,7 @@ function normalizeRoute(route: string): string {
 }
 
 function prettyCrumbs(route: string, badge?: string): string {
-  const base = "Miraculous Wing";
+  const base = "LebedI";
   const p = prettyRoute(route);
   if (badge) return `${base} › ${badge} › ${p}`;
   return `${base} › ${p}`;

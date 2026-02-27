@@ -6,7 +6,7 @@ import { endpoints } from "../api/endpoints";
 import type { ServicesResponse, ContactInfo } from "../api/types";
 import { viberLinks } from "../config/contacts";
 import ReviewsPreview from "../components/sections/ReviewsPreview";
-
+import PageFrame from "../components/PageFrame";
 export default function HomePage() {
   const [services, setServices] = useState<ServicesResponse | null>(null);
   
@@ -40,15 +40,16 @@ export default function HomePage() {
   }, []);
 
   return (
+    <PageFrame>
     <div className="page">
       <HeroSlider viberLink={viberLinks.group} />
-      <PhilosophyBlock />
-      <ReviewsPreview />
+      <PhilosophyBlock /> 
+           
       <main className="container">
         {error && <div className="alert">{error}</div>}
-
-        <section className="section">
-          <h2>Масаж</h2>
+  
+        <section id="massage" className="section">
+         <h2>Масаж</h2>
           <p>{services ? services.massage.join(" • ") : "Завантаження..."}</p>
           <div className="section__actions">
             <Link className="btn btn--primary" to="/massage">Детальніше →</Link>
@@ -86,7 +87,11 @@ export default function HomePage() {
             </a>
           </div>
         </section>
+         <div className="reviewsWrap">
+        <ReviewsPreview />
+      </div>
       </main>
     </div>
+   </PageFrame>
   );
 }

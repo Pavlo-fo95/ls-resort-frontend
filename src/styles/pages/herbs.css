@@ -1,0 +1,215 @@
+.herbsTop{ display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; align-items:flex-end; }
+.herbsTitle{ margin:0; font-size: 28px; font-weight: 1000; letter-spacing: -0.02em; }
+.herbsLead{ max-width: 620px; margin: 6px 0 0; }
+
+.herbGrid{
+  margin-top: 14px;
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+@media (max-width: 980px){ .herbGrid{ grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px){ .herbGrid{ grid-template-columns: 1fr; } }
+
+.herbCard{
+  text-align:left;
+  border: 1px solid var(--stroke);
+  background: var(--surface-2);
+  border-radius: 18px;
+  overflow:hidden;
+  padding:0;
+  cursor:pointer;
+  transition: transform .18s ease, filter .18s ease;
+}
+.herbCard:hover{ transform: translateY(-2px); filter: brightness(1.02); }
+
+.herbCard__media{ position:relative; aspect-ratio: 16/10; }
+.herbCard__img{ width:100%; height:100%; object-fit: cover; display:block; }
+.herbCard__badges{
+  position:absolute;
+  left: 12px;
+  bottom: 12px;
+  display:flex; gap:8px; flex-wrap:wrap;
+}
+
+.badgePill{
+  font-size: 12px;
+  font-weight: 900;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border:1px solid var(--stroke);
+  background: rgba(0,0,0,.18);
+  color: var(--ink);
+}
+html[data-theme="light"] .badgePill{
+  background: rgba(255,255,255,.72);
+}
+.badgePill--hot{
+  border-color: rgba(255,107,107,.38);
+  background: rgba(255,107,107,.18);
+}
+
+.herbCard__body{ padding: 12px 12px 10px; }
+.herbCard__name{ font-weight: 1000; font-size: 18px; letter-spacing:-0.01em; }
+.herbCard__sub{ margin-top: 6px; }
+
+.herbCard__foot{
+  padding: 0 12px 12px;
+  display:flex;
+  justify-content:flex-end;
+}
+.linkLike{ color: var(--primary-2); font-weight: 900; }
+
+/* Panel */
+.herbPanelWrap{ position: fixed; inset: 0; z-index: 9999; }
+.herbPanelOverlay{ position: absolute; inset:0; background: rgba(0,0,0,.35); backdrop-filter: blur(2px); }
+.herbPanel{
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  bottom: 18px;
+  width: min(980px, calc(100vw - 36px));
+  border-radius: 20px;
+  border: 1px solid var(--stroke);
+  background: rgba(22, 26, 36, 0.86);
+  color: var(--ink);
+  overflow: auto;
+  box-shadow: 0 18px 60px rgba(0,0,0,.35);
+}
+html[data-theme="light"] .herbPanel{
+  background: rgba(255,255,255,.92);
+}
+
+.herbPanel__head{
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 14px 16px;
+  display:flex;
+  justify-content:space-between;
+  gap: 14px;
+  align-items:flex-start;
+  border-bottom: 1px solid var(--stroke);
+  background: inherit;
+}
+
+.herbPanel__title{ font-size: 22px; font-weight: 1000; }
+
+.herbPanel__grid{
+  padding: 16px;
+  display:grid;
+  grid-template-columns: .95fr 1.05fr;
+  gap: 16px;
+}
+@media (max-width: 980px){
+  .herbPanel{ left: 18px; right: 18px; width: auto; }
+  .herbPanel__grid{ grid-template-columns: 1fr; }
+}
+
+.herbPanel__media{ display:grid; gap:10px; }
+.herbPanel__img{
+  width:100%;
+  border-radius: 18px;
+  border:1px solid var(--stroke);
+  object-fit: cover;
+}
+.herbPanel__tags{ display:flex; gap:8px; flex-wrap:wrap; }
+
+.miniBlock{
+  border: 1px solid var(--stroke);
+  background: var(--surface-2);
+  border-radius: 16px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+.miniBlock h3{ margin:0 0 8px; font-size: 14px; letter-spacing:.04em; text-transform: uppercase; }
+
+.bullets{ margin:0; padding-left: 18px; }
+.chips{ display:flex; flex-wrap:wrap; gap:8px; }
+.chip{
+  padding: 7px 10px;
+  border-radius: 999px;
+  border:1px solid var(--stroke);
+  background: rgba(255,255,255,.06);
+  font-weight: 800;
+  font-size: 13px;
+}
+html[data-theme="light"] .chip{ background: rgba(0,0,0,.04); }
+
+.noteBox{
+  margin-top: 10px;
+  border: 1px dashed rgba(255,255,255,.22);
+  border-radius: 14px;
+  padding: 10px;
+  opacity: .92;
+}
+html[data-theme="light"] .noteBox{
+  border-color: rgba(0,0,0,.18);
+}
+
+.chooseBlock__box{
+  border:1px solid var(--stroke);
+  border-radius:18px;
+  padding:18px;
+  background: var(--surface-2);
+}
+
+.chooseGrid{
+  margin-top:14px;
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap:16px;
+}
+
+@media (max-width: 768px){
+  .chooseGrid{
+    grid-template-columns: 1fr;
+  }
+}
+/* Инфо-блок внутри панели/дровера */
+.infoBox{
+  border-radius: 16px;
+  padding: 14px 14px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.infoBox__title{
+  display:flex;
+  align-items:center;
+  gap: 8px;
+  font-weight: 900;
+  margin: 0 0 10px;
+  color: var(--ink-strong);
+}
+
+.infoBox__text{
+  color: var(--ink);
+  font-weight: 600;
+  line-height: 1.55;
+}
+
+.infoBox__list{
+  margin: 10px 0 0;
+  padding-left: 18px;
+  color: var(--ink);
+}
+
+.infoBox__list li{
+  margin: 8px 0;
+  color: var(--ink);
+}
+
+/* ТЁМНАЯ тема — инфоблок чуть ярче */
+:root[data-theme="dark"] .infoBox{
+  border-color: rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.07);
+}
+
+/* СВЕТЛАЯ тема — инфоблок “бумажный”, без грязи */
+:root[data-theme="light"] .infoBox{
+  border-color: rgba(0,0,0,0.08);
+  background: rgba(255,255,255,0.82);
+}

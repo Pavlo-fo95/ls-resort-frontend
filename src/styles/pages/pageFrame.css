@@ -1,0 +1,55 @@
+/* чтобы НИКОГДА не появлялся горизонтальный скролл */
+html, body { overflow-x: hidden; }
+
+.pageFrame{
+  position: relative;
+  min-height: 100vh;
+}
+
+/* контент выше водяного знака */
+.pageFrame__content{
+  position: relative;
+  z-index: 2;
+}
+
+/* Водяной знак ВСЕГДА сзади и не мешает кликам */
+.wm{
+  position: fixed;
+  left: 50%;
+  top: 62%;
+  transform: translate(-50%, -50%); /* rotate добавим инлайном */
+  width: min(1200px, 120vw);        /* вот это спасает на 100%/125% */
+  height: min(1200px, 120vw);
+  opacity: 0.06;
+
+  pointer-events: none;
+  z-index: 1;
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+
+  filter: saturate(1.15) contrast(1.1);
+}
+
+/* если хочешь “правее и ближе к центру” — смещай translate */
+.wm.rightish{
+  left: 62%;
+  top: 60%;
+}
+.pageFrame__bg{
+  background:
+    radial-gradient(circle at 15% 20%, rgba(66,102,255,.18), transparent 40%),
+    radial-gradient(circle at 85% 30%, rgba(255,107,107,.14), transparent 42%),
+    linear-gradient(135deg,
+      rgba(66,102,255,.10) 0%,
+      rgba(66,102,255,.06) 40%,
+      rgba(255,107,107,.08) 100%
+    );
+}
+
+.brand__badge{
+  background: rgba(255,255,255,.85);
+  border: 1px solid rgba(0,0,0,.06);
+  box-shadow: 0 10px 30px rgba(0,0,0,.08);
+}

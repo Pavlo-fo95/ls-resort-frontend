@@ -1,8 +1,14 @@
+import PageFrame from "../components/PageFrame";
+
 export default function CartPage() {
   return (
-    <div className="container">
-      <h1>Кошик</h1>
-      <p className="muted">Поки що порожньо. Тут буде кошик товарів/послуг.</p>
+    <PageFrame>
+    <div className="page cartPage">
+      <main className="container section">
+        <h1 className="pageTitle">Кошик</h1>
+        <p className="muted">Поки що порожньо. Тут буде кошик товарів/послуг.</p>
+      </main>
     </div>
+   </PageFrame>
   );
 }

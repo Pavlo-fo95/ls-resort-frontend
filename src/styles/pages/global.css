@@ -1,0 +1,32 @@
+.massageBlock {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 40px;
+  align-items: center;
+  margin-bottom: 80px;
+}
+
+.massageBlock img {
+  width: 100%;
+  border-radius: 18px;
+  object-fit: cover;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+}
+
+.massageBlock.reverse {
+  grid-template-columns: 1.2fr 1fr;
+}
+
+.massageBlock.reverse img {
+  order: 2;
+}
+
+@media (max-width: 900px) {
+  .massageBlock {
+    grid-template-columns: 1fr;
+  }
+
+  .massageBlock.reverse img {
+    order: 0;
+  }
+}

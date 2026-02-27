@@ -60,7 +60,7 @@ export default function ReviewsPreview() {
         <div className="reviewsPreview__top">
           <div>
             <h2 className="reviewsPreview__title">Відгуки</h2>
-            <p className="reviewsPreview__lead">Коротко і по суті — тільки рейтинг 💫</p>
+            <p className="reviewsPreview__lead"> Повний опис на сторінці Відгуки 💫</p>
           </div>
           <Link className="btn btn--primary" to="/reviews">
             Читати всі →

@@ -6,7 +6,12 @@
 .header{ z-index: 50; }
 .popover{ z-index: 9998; }
 .modalOverlay{ z-index: 9999; }
-.drawer{ z-index: 1000; } /* mobile menu */
+/* drawer (моб меню) выше popover, но ниже modal */
+.drawer{ z-index: 3000; }
+
+/* modalOverlay + modalPanel самый верх */
+.modalOverlay{ z-index: 9999; }
+.modal{ z-index: 10000; } /* если у тебя есть .modal/.modal__panel */
 
 /* POPUP mega-menu */
 .mega{
@@ -160,23 +165,169 @@
 .modalOverlay{
   position: fixed;
   inset: 0;
-  pointer-events: none;
   opacity: 0;
+  pointer-events: none;
+  transition: opacity .18s ease;
 }
 
 .modalOverlay.isOpen{
-  pointer-events: auto;
   opacity: 1;
+  pointer-events: auto;
 }
-/* СТРАХОВКА: закрытые оверлеи не имеют права ловить клики */
+
+.modal__panel{ z-index: 10000; position: relative; }
+.modalOverlay.modal--map .modal{
+  max-width: 760px;
+}
+
+.startMap__row{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  margin-bottom: 10px;
+}
+
+.startMap__input{
+  flex:1;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(156,120,92,.25);
+  background: rgba(255,248,238,.75);
+  color: rgba(92,64,46,.95);
+  font-weight: 650;
+  outline: none;
+}
+
+.startMap__btn{
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(156,120,92,.25);
+  background: rgba(244,232,220,.95);
+  color: rgba(92,64,46,.95);
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.startMap__note{
+  margin: 6px 0 10px;
+  font-weight: 650;
+  opacity: .9;
+}
+
+.startMap__note--err{
+  color: rgba(140, 64, 46, .95);
+}
+
+.startMap__results{
+  display:grid;
+  gap: 6px;
+  max-height: 140px;
+  overflow: auto;
+  margin-bottom: 10px;
+  padding-right: 4px;
+}
+
+.startMap__result{
+  text-align:left;
+  padding: 8px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(156,120,92,.18);
+  background: rgba(255,255,255,.55);
+  color: rgba(92,64,46,.95);
+  cursor: pointer;
+}
+
+.startMap__result.isActive{
+  background: rgba(244,232,220,.95);
+  border-color: rgba(156,120,92,.32);
+}
+
+.startMap__frameWrap{
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(156,120,92,.2);
+  box-shadow: 0 10px 26px rgba(46,31,22,.12);
+}
+
+.startMap__frame{
+  width: 100%;
+  height: 360px;
+  border: 0;
+  display:block;
+}
+
+.startMap__footer{
+  display:flex;
+  justify-content:flex-end;
+  margin-top: 10px;
+}
+
+.startMap__link{
+  color: rgba(92,64,46,.95);
+  font-weight: 850;
+  text-decoration: none;
+}
+.startMap__bottom{
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(156,120,92,.18);
+  display: grid;
+  gap: 10px;
+}
+
+.startMap__addressLabel{
+  font-weight: 900;
+  color: rgba(92,64,46,.92);
+  margin-bottom: 4px;
+}
+
+.startMap__addressText{
+  color: rgba(92,64,46,.9);
+  line-height: 1.35;
+  font-weight: 650;
+}
+
+.startMap__actions{
+  display:flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items:center;
+  justify-content: flex-end;
+}
+
+.startMap__btnGhost{
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(156,120,92,.25);
+  background: rgba(255,255,255,.55);
+  color: rgba(92,64,46,.95);
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.startMap__btnGhost:hover{
+  background: rgba(244,232,220,.85);
+}
+/* делаем модалку ниже по странице */
+.modalOverlay.modal--map{
+  align-items: flex-start;
+  padding-top: 120px;
+}
+
+/* добавим внутренний отступ сверху */
+.startMap{
+  padding-top: 12px;
+}
+
+/* уменьшаем карту чтобы она не "лезла" */
+.startMap__frame{
+  width: 100%;
+  height: 320px; /* можно 300 если нужно компактнее */
+  border: 0;
+  display:block;
+}
 .modalOverlay{
-  pointer-events: none !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
-/* если модалка реально открыта — тогда разрешаем клики */
-.modalOverlay.isOpen{
-  pointer-events: auto !important;
-}
-
-.modalOverlay{ pointer-events:none !important; }
-.modalOverlay.isOpen{ pointer-events:auto !important; }

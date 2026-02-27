@@ -55,7 +55,7 @@ const siteDocs: SearchDoc[] = [
   { id: "page-reviews", type: "page", title: "Відгуки", route: "/reviews", body: "Відгуки клієнтів.", breadcrumbs: "Інфо" },
   { id: "page-blog", type: "page", title: "Блог", route: "/blog", body: "Статті та відео.", breadcrumbs: "Матеріали" },
 
-  // ✅ Примеры секций-якорей (подставь реальные якоря, если есть)
+  // ✅ некоторые секции-якорей (подставить реальные якоря, которые есть)
   {
     id: "sec-shoulder",
     type: "section",
@@ -76,7 +76,7 @@ const siteDocs: SearchDoc[] = [
   },
 ];
 
-// ✅ Блог: аккуратно собираем body без tags/youtubeUrl (у тебя youtube)
+// ✅ Блог: аккуратно собираем body без tags/youtubeUrl (youtube)
 function blogDocs(): SearchDoc[] {
   return blogPosts.map((p) => {
     // подстрой поля под твой BlogPost:

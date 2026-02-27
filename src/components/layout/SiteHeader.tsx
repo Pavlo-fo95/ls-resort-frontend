@@ -6,11 +6,13 @@ import Popover, { type AnchorRect } from "../ui/Popover";
 import Modal from "../ui/Modal";
 import { useMe } from "../../hooks/useMe";
 import SearchPopover from "../SearchPopover";
+import StartMapModalContent from "../start/StartMapModalContent";
 
 type MenuKey = "massage" | "training" | "herbs" | "about" | "reviews";
 
 type Props = {
   brandText?: string;
+  onStart?: () => void;
 };
 
 type ViberLinks = {
@@ -19,7 +21,7 @@ type ViberLinks = {
   group: string;
 };
 
-export default function SiteHeader({ brandText = "Miraculous Wing" }: Props) {
+export default function SiteHeader({ brandText = "LebedI", onStart }: Props) {
   const [openMenu, setOpenMenu] = useState<MenuKey | null>(null);
   const [startOpen, setStartOpen] = useState(false);
   const [anchorRect, setAnchorRect] = useState<AnchorRect | null>(null);
@@ -161,7 +163,7 @@ export default function SiteHeader({ brandText = "Miraculous Wing" }: Props) {
             </span>
 
             <span className="brand__text">
-              Miraculous Wing {brandText}
+               {brandText}
             </span>
           </Link>
 
@@ -211,7 +213,7 @@ export default function SiteHeader({ brandText = "Miraculous Wing" }: Props) {
             <NavLink to="/reviews" onClick={closeAll}>
               {t("menu.reviews")}
             </NavLink>
-            {/* “Почати” — Modal */}
+            {/* “Map” — Modal */}
             <button
               type="button"
               className="nav__btn"
@@ -396,11 +398,12 @@ export default function SiteHeader({ brandText = "Miraculous Wing" }: Props) {
               className="btn btn--primary"
               type="button"
               onClick={() => {
-                setStartOpen(true);
-                closePopover();
+                 // твои close/popover штуки если есть
+                onStart?.();
               }}
+              
             >
-              Почати
+              Мапа
             </button>
             <div className="mega__sideNote">Швидкий вибір напряму</div>
           </div>
@@ -434,34 +437,16 @@ export default function SiteHeader({ brandText = "Miraculous Wing" }: Props) {
         </div>
       </Popover>
 
-      {/* MODAL “Почати” */}
+      {/* MODAL Мапа */}
       <Modal
         open={startOpen}
         onClose={() => setStartOpen(false)}
-        title="Почати — оберіть напрям"
-        overlayClassName="modal--heroPanel"
+        title="Пошук адреси"
+        overlayClassName="modal--map"
       >
-        <div className="startGrid">
-          <Link className="startCard" to="/about" onClick={closeAll}>
-            <div className="startCard__t">Про нас</div>
-            <div className="startCard__d">Підхід, студія, команда</div>
-          </Link>
-
-          <Link className="startCard" to="/massage" onClick={closeAll}>
-            <div className="startCard__t">Масаж</div>
-            <div className="startCard__d">Формати та запис</div>
-          </Link>
-
-          <Link className="startCard" to="/training" onClick={closeAll}>
-            <div className="startCard__t">Тренування</div>
-            <div className="startCard__d">Йогатерапія та рух</div>
-          </Link>
-
-          <Link className="startCard" to="/herbs" onClick={closeAll}>
-            <div className="startCard__t">Трави</div>
-            <div className="startCard__d">Збори та підбір</div>
-          </Link>
-        </div>
+        <StartMapModalContent
+          lang={(i18n.language === "ru" ? "ru" : i18n.language === "en" ? "en" : "uk")}
+        />
       </Modal>
     </>
   );

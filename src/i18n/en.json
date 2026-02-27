@@ -1,5 +1,5 @@
 {
-  "brand": "Miraculous Wing",
+  "brand": "LebedI",
   "menu": {
     "massage": "Massage",
     "training": "Training",
@@ -9,7 +9,7 @@
     "bookViber": "Viber",
     "schedule": "Schedule",
     "blog": "Blog",
-    "start": "Start",
+    "start": "Map",
     "login": "Login",
     "account": "Account",
     "logout": "Logout"
@@ -38,11 +38,12 @@
     "secondary": "Learn more"
   },
   "philosophy": {
-    "brand": "SwanS ∞ miraculous wing - resort studio",
-    "text": "where the body and nervous system find balance again."
+    "brand": "LebedI",
+    "text": "is understanding and consistent work where the body and nervous system find balance again.",
+    "sub": "Focus, attention, consistency, and trust are the foundation for deep work with both physical and emotional health."
   },
   "home": {
-    "aboutTitle": "SwanS ∞ miraculous wing - resort studio",
+    "aboutTitle": "LebedI",
     "aboutP1": "is a space for body and nervous system recovery.",
     "aboutP2": "We combine yoga therapy, massage, and bodywork so you can recover in your usual rhythm of life — without long trips or resorts.",
     "sections": {
@@ -94,7 +95,7 @@
     "tagline": "A city resort — without long trips",
     "contactsTitle": "Contacts",
     "socialTitle": "Social media",
-    "addressNote": "Address will be added later",
+    "addressNote": "Neil Armstrong St., 2D, 6th floor, room 614, BC \"CONTINENT\", Dnipro, Ukraine",
     "rights": "All rights reserved."
   }
 }

@@ -1,6 +1,5 @@
-// src/config/contacts.ts
 export const viberLinks = {
-  iryna: "https://viber.com",   // позже заменим
+  iryna: "https://viber.com", 
   serhii: "https://viber.com",
   group: "https://viber.com",
 };

@@ -1,6 +1,7 @@
 import CallButton from "../components/ui/CallButton";
 import PageHero from "../components/sections/PageHero";
 import { phones, viberLinks } from "../config/contacts";
+import PageFrame from "../components/PageFrame";
 
 type Session = { day: string; time: string; title?: string; coach?: string };
 type Place = {
@@ -34,10 +35,11 @@ const places: Place[] = [
 
 export default function SchedulePage() {
   return (
+    <PageFrame>
     <div className="page schedulePage">
       <PageHero
         title="Розклад"
-        subtitle="Два локації, чіткий час, без зайвого шуму."
+        subtitle="Дві локації, чіткий час, без зайвого шуму."
         image="/hero/schedule.png"
         viberLink={viberLinks.group}
       />
@@ -108,5 +110,6 @@ export default function SchedulePage() {
         </section>
       </main>
     </div>
+    </PageFrame>
   );
 }

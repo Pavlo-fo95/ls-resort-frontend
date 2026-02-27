@@ -1,11 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 
 type Props = {
   open: boolean;
   onClose: () => void;
   title?: string;
-  children: React.ReactNode;
-  overlayClassName?: string; // Додано проп для класу оверлея
+  children: ReactNode;
+  overlayClassName?: string;
 };
 
 export default function Modal({ open, onClose, title, children, overlayClassName }: Props) {
@@ -34,7 +34,7 @@ export default function Modal({ open, onClose, title, children, overlayClassName
     <div className={`modalOverlay isOpen ${overlayClassName ?? ""}`}>
       <div className="modal" ref={boxRef}>
         <div className="modal__head">
-          <div className="modal__title">{title ?? "Почати"}</div>
+          <div className="modal__title">{title ?? "Мапа"}</div>
           <button className="modal__close" onClick={onClose} aria-label="Close">
             ✕
           </button>

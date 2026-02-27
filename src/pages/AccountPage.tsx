@@ -5,6 +5,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "../hooks/useTheme";
 import { reviewLabel, sentimentClass, sentimentKey, starsText } from "../components/ui/reviewsUi";
+import PageFrame from "../components/PageFrame";
 
 import {
   ResponsiveContainer,
@@ -135,6 +136,7 @@ const pvData = useMemo(() => {
   };
 
   return (
+   <PageFrame>  
     <div className="container section">
       <div className="cab">
         <header className="cab__top">
@@ -167,7 +169,7 @@ const pvData = useMemo(() => {
           <section className="card">
             <div className="card__head">
               <h2>{t("account.profile")}</h2>
-              <span className="muted">SwanS ∞ Miraculous Wing</span>
+              <span className="muted">LebedI</span>
             </div>
 
             <div className="profile">
@@ -374,5 +376,6 @@ const pvData = useMemo(() => {
         </div>
       </div>
     </div>
+   </PageFrame>
   );
 }

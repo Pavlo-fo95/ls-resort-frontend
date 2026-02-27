@@ -8,12 +8,16 @@
 @import "./auth.css";
 @import "./hero.css";
 @import "./overlays.css";
+@import "./start.css";
 
 /* pages */
 @import "./pages/account.css";
+@import "./pages/pageFrame.css";
+@import "./pages/global.css";
 @import "./pages/blog.css";
 @import "./pages/reviews.css";
 @import "./pages/about.css";
+@import "./pages/herbs.css";
 @import "./pages/schedule.css";
 @import "./pages/training.css";
 @import "./pages/searchPopover.css";

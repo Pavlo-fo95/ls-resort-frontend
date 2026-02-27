@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { blogPosts } from "../data/blogPosts";
+import PageFrame from "../components/PageFrame";
 
 function toEmbedUrl(url: string) {
   // playlist
@@ -41,10 +42,13 @@ export default function BlogPostPage() {
   }
 
   return (
+    <PageFrame>
     <div className="page">
       <main className="container section">
         
-
+       <Link className="btn" to="/#massage">
+          ← На головну
+        </Link>
         <h1 className="pageTitle" style={{ marginTop: 12 }}>
           {post.title}
         </h1>
@@ -81,5 +85,6 @@ export default function BlogPostPage() {
         ) : null}
       </main>
     </div>
+   </PageFrame>
   );
 }
