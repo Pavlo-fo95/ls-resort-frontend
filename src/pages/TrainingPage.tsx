@@ -1,4 +1,10 @@
 import { Link } from "react-router-dom";
+import { useMemo, useState } from "react";
+
+import ProgramSheet from "../components/ProgramSheet";
+import { programDetails } from "../data/programDetails";
+import type { ProgramDetail } from "../data/programDetails";
+
 import PageHero from "../components/sections/PageHero";
 import CallButton from "../components/ui/CallButton";
 import { phones, viberLinks } from "../config/contacts";
@@ -20,7 +26,7 @@ const focus: FocusItem[] = [
       "Постава, слабкі стабілізатори",
       "Зажими після сидячої роботи",
     ],
-    image: "/rehab/run.png", // необязательно, можно убрать
+    image: "/rehab/run.png",
   },
   {
     num: "02",
@@ -46,15 +52,35 @@ const focus: FocusItem[] = [
   },
 ];
 
-type ProgramCard = { title: string; image: string; tag: string };
+type ProgramCard = { id: string; title: string; image: string; tag: string };
 
 const programs: ProgramCard[] = [
-  { title: "Здорове серце", image: "/programs/heart.jpg", tag: "дихання + рух" },
-  { title: "Здорова спина", image: "/programs/back.jpg", tag: "стабілізація" },
-  { title: "Легка вага", image: "/programs/weight.jpg", tag: "м’яка сила" },
+  { id: "heart", title: "Здорове серце", image: "/programs/heart.jpg", tag: "дихання + м’яке кардіо" },
+  { id: "back", title: "Здорова спина", image: "/programs/back.jpg", tag: "стабілізація + постава" },
+  { id: "weight", title: "Легка вага", image: "/programs/weight.jpg", tag: "м’яка сила + регулярність" },
 ];
 
 export default function TrainingPage() {
+  const [programOpen, setProgramOpen] = useState(false);
+  const [selectedProgram, setSelectedProgram] = useState<ProgramDetail | null>(null);
+
+  // раскрытия
+  const [aboutOpen, setAboutOpen] = useState(false);
+  const [placesOpen, setPlacesOpen] = useState(false);
+
+  const programMap = useMemo(() => new Map(programDetails.map((p) => [p.id, p])), []);
+
+  const openProgram = (id: string) => {
+    setSelectedProgram(programMap.get(id) ?? null);
+    setProgramOpen(true);
+  };
+
+  // превью текста (чтоб не “простыня”)
+  const aboutPreview = useMemo(() => {
+    const lines = irynaTextUA.split("\n").filter(Boolean);
+    return lines.slice(0, 10).join("\n");
+  }, []);
+
   return (
     <PageFrame>
       <div className="page trainingPage">
@@ -86,83 +112,110 @@ export default function TrainingPage() {
             </div>
           </div>
 
-          {/* Блок 1 — текст Ірини */}
+          {/* Блок 1 — методика (текст) с раскрытием */}
           <section className="section">
             <div className="card" style={{ padding: 18 }}>
               <div className="card__head" style={{ marginBottom: 10 }}>
-                <h2 style={{ margin: 0 }}>Сила — це здоров’я</h2>
-                <span className="muted">від Ірини</span>
+                <h2 style={{ margin: 0 }}>Що таке йогатерапія і як ми працюємо</h2>
+                <span className="muted">без “через біль”, з опорою на анатомію</span>
               </div>
 
               <p className="muted" style={{ whiteSpace: "pre-line", margin: 0 }}>
-                {irynaTextUA}
+                {aboutOpen ? irynaTextUA : aboutPreview}
               </p>
+
+              <div className="section__actions" style={{ marginTop: 12, justifyContent: "flex-end" }}>
+                <button className="btn" onClick={() => setAboutOpen((v) => !v)}>
+                  {aboutOpen ? "Згорнути ↑" : "Розгорнути ↓"}
+                </button>
+              </div>
             </div>
           </section>
 
-          {/* Локації (шахматка) */}
+          {/* Локації / розклад — спрятать и раскрывать */}
           <section className="section">
-            <div className="trainingChess">
-              {places.map((place: Place, idx: number) => (
-                <article
-                  className={`trainingBlock ${idx % 2 ? "is-reverse" : ""}`}
-                  key={place.id}
-                >
-                  <div
-                    className="trainingBlock__media"
-                    style={{ backgroundImage: `url(${place.image || ""})` }}
-                  >
-                    <div className="trainingBlock__mediaOverlay" />
-                  </div>
+            <div className="card" style={{ padding: 18 }}>
+              <div className="card__head" style={{ marginBottom: 10 }}>
+                <h2 style={{ margin: 0 }}>Локації та розклад</h2>
+                <span className="muted">натисни — і відкриється список</span>
+              </div>
 
-                  <div className="trainingBlock__content">
-                    <h2 className="trainingBlock__title">{place.name}</h2>
-                    {place.subtitle ? <p className="trainingBlock__sub">{place.subtitle}</p> : null}
+              <p className="muted" style={{ marginTop: 6 }}>
+                Тут адреси, час занять та короткий опис. Зручно: не “шахматка” одразу на всю сторінку 🙂
+              </p>
 
-                    {place.bullets?.length ? (
-                      <ul className="trainingList">
-                        {place.bullets.map((x: string) => (
-                          <li key={x}>{x}</li>
-                        ))}
-                      </ul>
-                    ) : null}
+              <div className="section__actions" style={{ marginTop: 12 }}>
+                <button className="btn btn--primary" onClick={() => setPlacesOpen((v) => !v)}>
+                  {placesOpen ? "Сховати розклад ↑" : "Показати розклад ↓"}
+                </button>
+                <a className="btn" href={viberLinks.group} target="_blank" rel="noreferrer">
+                  Запис у Viber →
+                </a>
+                <Link className="btn" to="/schedule">
+                  Розклад →
+                </Link>
+              </div>
 
-                    <div className="trainingScheduleMini">
-                      <div className="trainingScheduleMini__title">Час</div>
-                      <div className="trainingScheduleMini__rows">
-                        {place.sessions.map((s: Session, i: number) => (
-                          <div className="trainingScheduleMini__row" key={`${place.id}-${i}`}>
-                            <span className="dotTiny" aria-hidden />
-                            <span>
-                              {s.day} — {s.time}
-                              {s.title ? <span className="muted"> • {s.title}</span> : null}
-                            </span>
+              {placesOpen ? (
+                <div style={{ marginTop: 14 }}>
+                  <div className="trainingChess">
+                    {places.map((place: Place, idx: number) => (
+                      <article className={`trainingBlock ${idx % 2 ? "is-reverse" : ""}`} key={place.id}>
+                        <div
+                          className="trainingBlock__media"
+                          style={{ backgroundImage: `url(${place.image || ""})` }}
+                        >
+                          <div className="trainingBlock__mediaOverlay" />
+                        </div>
+
+                        <div className="trainingBlock__content">
+                          <h3 className="trainingBlock__title" style={{ marginTop: 0 }}>
+                            {place.name}
+                          </h3>
+                          {place.subtitle ? <p className="trainingBlock__sub">{place.subtitle}</p> : null}
+
+                          {place.bullets?.length ? (
+                            <ul className="trainingList">
+                              {place.bullets.map((x: string) => (
+                                <li key={x}>{x}</li>
+                              ))}
+                            </ul>
+                          ) : null}
+
+                          <div className="trainingScheduleMini">
+                            <div className="trainingScheduleMini__title">Час</div>
+                            <div className="trainingScheduleMini__rows">
+                              {place.sessions.map((s: Session, i: number) => (
+                                <div className="trainingScheduleMini__row" key={`${place.id}-${i}`}>
+                                  <span className="dotTiny" aria-hidden />
+                                  <span>
+                                    {s.day} — {s.time}
+                                    {s.title ? <span className="muted"> • {s.title}</span> : null}
+                                  </span>
+                                </div>
+                              ))}
+                            </div>
                           </div>
-                        ))}
-                      </div>
-                    </div>
 
-                    <p className="muted" style={{ marginTop: 10 }}>
-                      {place.address}
-                      {place.note ? <span className="muted"> • {place.note}</span> : null}
-                    </p>
+                          <p className="muted" style={{ marginTop: 10 }}>
+                            {place.address}
+                            {place.note ? <span className="muted"> • {place.note}</span> : null}
+                          </p>
 
-                    <div className="section__actions" style={{ marginTop: 14 }}>
-                      <a
-                        className="btn btn--primary"
-                        href={viberLinks.group}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        Запис у Viber
-                      </a>
-                      <Link className="btn" to="/schedule">
-                        Розклад →
-                      </Link>
-                    </div>
+                          <div className="section__actions" style={{ marginTop: 14 }}>
+                            <a className="btn btn--primary" href={viberLinks.group} target="_blank" rel="noreferrer">
+                              Запис у Viber
+                            </a>
+                            <Link className="btn" to="/schedule">
+                              Розклад →
+                            </Link>
+                          </div>
+                        </div>
+                      </article>
+                    ))}
                   </div>
-                </article>
-              ))}
+                </div>
+              ) : null}
             </div>
           </section>
 
@@ -210,50 +263,20 @@ export default function TrainingPage() {
               </div>
             </div>
           </section>
+
+          {/* З якими запитами */}
           <section className="section">
             <div className="pageTop" style={{ marginBottom: 10 }}>
               <div>
-                <h2 className="pageTitle" style={{ fontSize: 28 }}>З якими запитами ми працюємо?</h2>
+                <h2 className="pageTitle" style={{ fontSize: 28 }}>
+                  З якими запитами ми працюємо?
+                </h2>
                 <p className="pageLead">
                   Йогатерапія + м’яка сила + міофасціальний реліз — щоб тіло стало стійким, а не “терпіло”.
                 </p>
               </div>
             </div>
-            <section className="section">
-              <div className="card" style={{ padding: 20 }}>
-                <div className="card__head">
-                  <h2 style={{ margin: 0 }}>Спина — найслабша частина сучасного тіла</h2>
-                  <span className="muted">чому біль не лікується таблетками</span>
-                </div>
 
-                <p className="muted" style={{ marginTop: 10 }}>
-                  М’язи спини — найслабша частина тіла сучасної людини.
-                  Ми сидимо більше, ніж рухаємось, і спина поступово «вимикається» з роботи.
-                  Коли м’язи слабшають — вони перестають утримувати вісь тіла,
-                  хребет втрачає стабільність, формуються асиметрії та сколіотичні зміни.
-                </p>
-
-                <p className="muted">
-                  Слабка спина — це не про вік і не про діагноз.
-                  Це про відсутність регулярної, правильної роботи м’язів,
-                  які повинні утримувати голову, грудну клітку та таз.
-                </p>
-
-                <div className="section__actions" style={{ marginTop: 14 }}>
-                  <Link className="btn btn--primary" to="/blog/spina-os">
-                    Читати детально →
-                  </Link>
-                  <a
-                    className="btn"
-                    href="https://youtu.be/MLWC21WoBFo?si=49jTxaMOH9blWgHF"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Відеоурок →
-                  </a>
-                </div>
-              </div>
-            </section>
             <div className="focusGrid">
               {focus.map((f) => (
                 <article className="focusCard" key={f.num}>
@@ -261,19 +284,23 @@ export default function TrainingPage() {
                   <div className="focusCard__body">
                     <h3 className="focusCard__title">{f.title}</h3>
                     <ul className="focusList">
-                      {f.points.map((p) => <li key={p}>{p}</li>)}
+                      {f.points.map((p) => (
+                        <li key={p}>{p}</li>
+                      ))}
                     </ul>
                   </div>
                 </article>
               ))}
             </div>
           </section>
+
+          {/* Програми */}
           <section className="section">
             <h2 style={{ marginBottom: 10 }}>Рекомендуємо звернути увагу на авторські програми</h2>
 
             <div className="programGrid">
               {programs.map((c) => (
-                <article className="programCard" key={c.title}>
+                <article className="programCard" key={c.id}>
                   <div
                     className="programCard__img"
                     style={{ backgroundImage: `url(${c.image})` }}
@@ -282,11 +309,17 @@ export default function TrainingPage() {
                   <div className="programCard__foot">
                     <div className="programCard__title">{c.title}</div>
                     <div className="programCard__tag">{c.tag}</div>
+
+                    <button className="linkBtn" onClick={() => openProgram(c.id)}>
+                      Детальніше →
+                    </button>
                   </div>
                 </article>
               ))}
             </div>
           </section>
+
+          {/* Онлайн */}
           <section className="section">
             <div className="card" style={{ padding: 18 }}>
               <div className="card__head">
@@ -312,6 +345,7 @@ export default function TrainingPage() {
               </div>
             </div>
           </section>
+
           {/* Вартість */}
           <section className="section section--alt">
             <h2>Вартість</h2>
@@ -330,6 +364,8 @@ export default function TrainingPage() {
           </section>
         </main>
       </div>
+
+      <ProgramSheet open={programOpen} onClose={() => setProgramOpen(false)} item={selectedProgram} />
     </PageFrame>
   );
 }

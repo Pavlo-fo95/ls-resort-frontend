@@ -13,6 +13,7 @@
 /* pages */
 @import "./pages/account.css";
 @import "./pages/pageFrame.css";
+@import "./pages/massage.css";
 @import "./pages/global.css";
 @import "./pages/blog.css";
 @import "./pages/reviews.css";
