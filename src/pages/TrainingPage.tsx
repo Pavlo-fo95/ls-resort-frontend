@@ -10,10 +10,20 @@ import CallButton from "../components/ui/CallButton";
 import { phones, viberLinks } from "../config/contacts";
 import PageFrame from "../components/PageFrame";
 
+import TrainingTopicSheet from "../components/TrainingTopicSheet";
+import { trainingTopicDetails } from "../data/trainingData";
+import type { TrainingTopicDetail } from "../data/trainingData";
+
 import { places, pricing, videoOfWeek, irynaTextUA } from "../data/trainingData";
 import type { Place, Session } from "../data/trainingData";
 
-type FocusItem = { num: string; title: string; points: string[]; image?: string };
+type FocusItem = {
+  num: string;
+  title: string;
+  points: string[];
+  image?: string;
+  detailId?: TrainingTopicDetail["id"];
+};
 
 const focus: FocusItem[] = [
   {
@@ -27,6 +37,7 @@ const focus: FocusItem[] = [
       "Зажими після сидячої роботи",
     ],
     image: "/rehab/run.png",
+    detailId: "focus-musculoskeletal",
   },
   {
     num: "02",
@@ -52,27 +63,54 @@ const focus: FocusItem[] = [
   },
 ];
 
-type ProgramCard = { id: string; title: string; image: string; tag: string };
+type ProgramCard = {
+  id: string;
+  title: string;
+  image: string;
+  tag: string;
+};
 
 const programs: ProgramCard[] = [
-  { id: "heart", title: "Здорове серце", image: "/programs/heart.jpg", tag: "дихання + м’яке кардіо" },
-  { id: "back", title: "Здорова спина", image: "/programs/back.jpg", tag: "стабілізація + постава" },
-  { id: "weight", title: "Легка вага", image: "/programs/weight.jpg", tag: "м’яка сила + регулярність" },
+  {
+    id: "heart",
+    title: "Здорове серце",
+    image: "/programs/heart.jpg",
+    tag: "дихання + м’яке кардіо",
+  },
+  {
+    id: "back",
+    title: "Здорова спина",
+    image: "/programs/back.jpg",
+    tag: "стабілізація + постава",
+  },
+  {
+    id: "weight",
+    title: "Легка вага",
+    image: "/programs/weight.jpg",
+    tag: "м’яка сила + регулярність",
+  },
 ];
 
 export default function TrainingPage() {
   const [programOpen, setProgramOpen] = useState(false);
   const [selectedProgram, setSelectedProgram] = useState<ProgramDetail | null>(null);
-
+  const [topicOpen, setTopicOpen] = useState(false);
+  const [selectedTopic, setSelectedTopic] = useState<TrainingTopicDetail | null>(null);
+ 
   // раскрытия
   const [aboutOpen, setAboutOpen] = useState(false);
   const [placesOpen, setPlacesOpen] = useState(false);
 
   const programMap = useMemo(() => new Map(programDetails.map((p) => [p.id, p])), []);
-
   const openProgram = (id: string) => {
     setSelectedProgram(programMap.get(id) ?? null);
     setProgramOpen(true);
+  };
+  
+  const topicMap = useMemo(() => new Map(trainingTopicDetails.map((t) => [t.id, t])), []);
+  const openTopic = (id: TrainingTopicDetail["id"]) => {
+    setSelectedTopic(topicMap.get(id) ?? null);
+    setTopicOpen(true);
   };
 
   // превью текста (чтоб не “простыня”)
@@ -281,13 +319,27 @@ export default function TrainingPage() {
               {focus.map((f) => (
                 <article className="focusCard" key={f.num}>
                   <div className="focusCard__num">{f.num}</div>
+
                   <div className="focusCard__body">
                     <h3 className="focusCard__title">{f.title}</h3>
+
                     <ul className="focusList">
                       {f.points.map((p) => (
                         <li key={p}>{p}</li>
                       ))}
                     </ul>
+
+                    {f.detailId ? (
+                      <button
+                        type="button"
+                        className="linkBtn focusCard__more"
+                        onClick={() => {
+                          if (f.detailId) openTopic(f.detailId);
+                        }}
+                      >
+                        Детальніше →
+                      </button>
+                    ) : null}
                   </div>
                 </article>
               ))}
@@ -306,6 +358,7 @@ export default function TrainingPage() {
                     style={{ backgroundImage: `url(${c.image})` }}
                     aria-hidden="true"
                   />
+
                   <div className="programCard__foot">
                     <div className="programCard__title">{c.title}</div>
                     <div className="programCard__tag">{c.tag}</div>
@@ -365,7 +418,17 @@ export default function TrainingPage() {
         </main>
       </div>
 
-      <ProgramSheet open={programOpen} onClose={() => setProgramOpen(false)} item={selectedProgram} />
+      <ProgramSheet
+        open={programOpen}
+        onClose={() => setProgramOpen(false)}
+        item={selectedProgram}
+      />
+
+      <TrainingTopicSheet
+        open={topicOpen}
+        onClose={() => setTopicOpen(false)}
+        item={selectedTopic}
+      />
     </PageFrame>
   );
 }

@@ -69,9 +69,7 @@ export default function ReviewsPage() {
       setLoading(true);
       setError(null);
 
-      const url = showAll
-        ? `${API}/api/reviews/all`
-        : `${API}/api/reviews?limit=100&only_published=true`;
+const url = `${API}/api/reviews?limit=100&only_published=${showAll ? "false" : "true"}`;
 
       const res = await fetch(url);
       if (!res.ok) {
