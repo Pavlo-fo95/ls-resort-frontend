@@ -38,10 +38,13 @@
     "secondary": "Learn more"
   },
   "philosophy": {
-    "brand": "LebedI",
-    "text": "is understanding and consistent work where the body and nervous system find balance again.",
-    "sub": "Focus, attention, consistency, and trust are the foundation for deep work with both physical and emotional health."
-  },
+  "brand": "LebedI",
+  "title": "a space of attention to the person and the body",
+  "text": "is a space of attention to the person and the body. We listen carefully, calmly explore the causes of tension, pain, and fatigue, and study each person’s condition and health history.",
+  "sub": "Gradually, step by step, through movement, breath, and attention, the body regains strength and stability.",
+  "accent": "There is comfort, calm, and support here, but most importantly — steady inner work and a gradual return to balance.",
+  "words": "attention • movement • recovery"
+},
   "home": {
     "aboutTitle": "LebedI",
     "aboutP1": "is a space for body and nervous system recovery.",

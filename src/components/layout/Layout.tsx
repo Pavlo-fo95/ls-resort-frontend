@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import SiteHeader from "./SiteHeader";
 import SiteFooter from "./SiteFooter";
-
+import FloatingCardsMenu from "../FloatingCardsMenu";
 import StartFab from "../start/StartFab";
 import StartPanel from "../start/StartPanel";
 import "../../styles/start.css";
@@ -21,7 +21,7 @@ export default function Layout() {
   return (
     <div className="appShell">
       <SiteHeader brandText="" onStart={() => setStartOpen(true)} />
-
+      <FloatingCardsMenu />
       <main className="appContent">
         <Outlet />
       </main>

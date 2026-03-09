@@ -59,8 +59,7 @@ export default function SiteHeader({ brandText = "LebedI", onStart }: Props) {
       return next;
     });
   };
-   // TODO: заменить на реальную авторизацию
-
+  
   const cartCount = 0;
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -208,6 +207,13 @@ export default function SiteHeader({ brandText = "LebedI", onStart }: Props) {
 
             <NavLink to="/blog" onClick={closeAll}>
               {t("menu.blog")}
+            </NavLink>
+
+            <NavLink
+              to="/health-cards"
+              className={({ isActive }) => `navLink ${isActive ? "navLink--active" : ""}`}
+            >
+               Карти здоров'я
             </NavLink>
 
             <NavLink to="/reviews" onClick={closeAll}>

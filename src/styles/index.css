@@ -12,6 +12,7 @@
 
 /* pages */
 @import "./pages/account.css";
+@import "./pages/health-cards.css";
 @import "./pages/pageFrame.css";
 @import "./pages/massage.css";
 @import "./pages/global.css";

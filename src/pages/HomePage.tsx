@@ -43,7 +43,7 @@ export default function HomePage() {
     <PageFrame>
     <div className="page">
       <HeroSlider viberLink={viberLinks.group} />
-      <PhilosophyBlock /> 
+      <PhilosophyBlock />
            
       <main className="container">
         {error && <div className="alert">{error}</div>}
