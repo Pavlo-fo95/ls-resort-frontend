@@ -5,6 +5,7 @@ import Layout from "./components/layout/Layout";
 import ScrollToHash from "./components/utils/ScrollToHash";
 import AnalyticsTracker from "./components/AnalyticsTracker";
 
+
 import HomePage from "./pages/HomePage";
 import AuthPage from "./pages/AuthPage";
 import MassagePage from "./pages/MassagePage";
@@ -12,13 +13,19 @@ import TrainingPage from "./pages/TrainingPage";
 import HerbsPage from "./pages/HerbsPage";
 import AboutPage from "./pages/AboutPage";
 import ReviewsPage from "./pages/ReviewsPage";
-import CartPage from "./pages/CartPage";
+
 import AdminInboxPage from "./pages/AdminInboxPage";
 import AccountPage from "./pages/AccountPage";
 import SchedulePage from "./pages/SchedulePage";
 import BlogListPage from "./pages/BlogListPage";
 import BlogPostPage from "./pages/BlogPostPage";
 import HealthCardsPage from "./pages/HealthCardsPage";
+
+import ShopPage from "./pages/ShopPage";
+import ShopProductPage from "./pages/ShopProductPage";
+import ShopCartPage from "./pages/ShopCartPage";
+
+import CartPage from "./pages/CartPage";
 
 import { useTheme } from "./hooks/useTheme";
 import { RequireAuth, RequireAdmin } from "./routes/guards";
@@ -39,12 +46,17 @@ export default function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/auth" element={<AuthPage />} />
-
           <Route path="/massage" element={<MassagePage />} />
           <Route path="/training" element={<TrainingPage />} />
           <Route path="/herbs" element={<HerbsPage />} />
           <Route path="/recommendations" element={<Navigate to="/herbs" replace />} />
 
+          <Route path="/cart" element={<CartPage />} />
+
+          <Route path="/shop" element={<ShopPage />} />
+          <Route path="/shop/:slug" element={<ShopProductPage />} />
+          <Route path="/shop-cart" element={<ShopCartPage />} />
+          
           <Route path="/about" element={<AboutPage />} />
           <Route path="/reviews" element={<ReviewsPage />} />
           <Route path="/schedule" element={<SchedulePage />} />
@@ -53,8 +65,6 @@ export default function App() {
           <Route path="/blog/:slug" element={<BlogPostPage />} />
 
           <Route path="/health-cards" element={<HealthCardsPage />} />
-          <Route path="/cart" element={<CartPage />} />
-
           <Route
             path="/account"
             element={

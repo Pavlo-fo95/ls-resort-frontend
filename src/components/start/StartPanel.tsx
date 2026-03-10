@@ -55,7 +55,7 @@ export default function StartPanel({ open, onClose }: Props) {
           </Link>
 
           <Link to="/herbs" className="startItem" onClick={onClose}>
-            <div className="startItem__title">Трави</div>
+            <div className="startItem__title">Фітозбори</div>
             <div className="startItem__sub">Збори та підбір</div>
           </Link>
         </nav>

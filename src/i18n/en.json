@@ -3,7 +3,7 @@
   "menu": {
     "massage": "Massage",
     "training": "Training",
-    "herbs": "Herbs",
+    "herbs": "Selections",
     "about": "About",
     "reviews": "Reviews",
     "bookViber": "Viber",
@@ -54,7 +54,7 @@
       "massageText": "Therapeutic, Thai and visceral massage practices.",
       "trainingTitle": "Training",
       "trainingText": "Formats for home, studio, and anti-stress.",
-      "herbsTitle": "Herbs",
+      "herbsTitle": "Selections",
       "herbsText": "Author herbal collections and recommendations.",
       "aboutTitle": "About us",
       "aboutText": "Experience, philosophy, and certifications.",

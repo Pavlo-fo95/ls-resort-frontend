@@ -14,7 +14,7 @@ export default function HerbsPage() {
    <PageFrame>
     <div className="page">
       <PageHero
-        title="Трави"
+        title="Фітозбори"
         subtitle="Авторські фітозбори — чисті склади, зрозумілі протоколи, м’яка підтримка."
         image="/hero/herbs.jpg"
         viberLink={viberLinks.iryna}
@@ -67,6 +67,8 @@ export default function HerbsPage() {
             ))}
           </div>
         </section>
+        <section id="order" className="section"></section>
+
         <section className="section chooseBlock">
           <div className="chooseBlock__box">
             <h3>🌿 Як обрати збір?</h3>

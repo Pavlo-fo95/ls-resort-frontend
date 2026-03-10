@@ -23,13 +23,55 @@ body{
   font-family: "Manrope", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 }
 
-.brand__text, .pageTitle{
-  font-family: "Cormorant Garamond", serif;
+.brand{
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
 }
-a{ color: var(--primary-2); text-decoration: none; }
-a:hover{ text-decoration: underline; }
 
-#root{ min-height: 100vh; }
+.brandLogo{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: transform .25s ease;
+}
+
+.brand:hover .brandLogo{
+  transform: scale(1.05);
+}
+
+.brandLogo__img{
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  display: block;
+  flex-shrink: 0;
+}
+
+.brandName{
+  font-family: "Cinzel", cursive;
+  font-size: 34px;
+  line-height: 1;
+  letter-spacing: 0.5px;
+  color: #6f63ff;
+  text-shadow: 0 2px 8px rgba(111, 99, 255, .25);
+  transition: color .3s ease, text-shadow .3s ease;
+  display: inline-flex;
+  align-items: baseline;
+}
+.brandInline{
+  font-family: "Cinzel", cursive;
+  font-size: 1.05em;
+  letter-spacing: .4px;
+  color:#6f63ff;
+}
+
+.brandAccent{
+  color:#ff7ab6;
+  font-size:1.15em;
+  margin-left: 1px;
+}
+
 
 /* якоря под fixed header */
 section{ scroll-margin-top: 84px; }

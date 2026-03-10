@@ -2,13 +2,14 @@
 @import "./tokens.css";
 @import "./base.css";
 @import "./components.css";
-
+@import "./sideMenu.css";
 @import "./header.css";
 @import "./footer.css";
 @import "./auth.css";
 @import "./hero.css";
 @import "./overlays.css";
 @import "./start.css";
+@import "./shop.css";
 
 /* pages */
 @import "./pages/account.css";

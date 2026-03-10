@@ -1,17 +1,21 @@
-import { useEffect, useState } from "react";
-import { NavLink,  useNavigate, Link } from "react-router-dom";
-import logo from "../../assets/logo.png";
+import { useEffect, useState, useCallback } from "react";
+import { NavLink, useNavigate, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+
+import logo from "../../assets/logo.png";
 import Popover, { type AnchorRect } from "../ui/Popover";
 import Modal from "../ui/Modal";
-import { useMe } from "../../hooks/useMe";
 import SearchPopover from "../SearchPopover";
 import StartMapModalContent from "../start/StartMapModalContent";
+import SideMenuDrawer from "./SideMenuDrawer";
 
-type MenuKey = "massage" | "training" | "herbs" | "about" | "reviews";
+import { useMe } from "../../hooks/useMe";
+import { useCart } from "../../context/useCart";
+
+type MenuKey = "massage" | "training" | "collections";
 
 type Props = {
-  brandText?: string;
+  brandName?: string;
   onStart?: () => void;
 };
 
@@ -21,18 +25,30 @@ type ViberLinks = {
   group: string;
 };
 
-export default function SiteHeader({ brandText = "LebedI", onStart }: Props) {
+export default function SiteHeader({ brandName = "LebedI", onStart }: Props) {
   const [openMenu, setOpenMenu] = useState<MenuKey | null>(null);
   const [startOpen, setStartOpen] = useState(false);
   const [anchorRect, setAnchorRect] = useState<AnchorRect | null>(null);
+  const [scrolled, setScrolled] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
   const navigate = useNavigate();
   const me = useMe();
-  const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [viberOpen, setViberOpen] = useState(false);
+  const { t, i18n } = useTranslation();
+  const { items, totalCount } = useCart();
+
+  const cartCount = typeof totalCount === "number" ? totalCount : items.length;
+
   const OPEN_COUNT_KEY = "search_open_count_v1";
   const OPEN_CLEAR_AFTER = 20;
   const RECENT_KEY = "search_recent_v2";
+
+  const viber: ViberLinks = {
+    iryna: "https://viber.com",
+    serhii: "https://viber.com",
+    group: "https://viber.com",
+  };
 
   function clearRecent() {
     localStorage.removeItem(RECENT_KEY);
@@ -53,16 +69,12 @@ export default function SiteHeader({ brandText = "LebedI", onStart }: Props) {
   }
 
   const onSearchToggle = () => {
-    setIsSearchOpen((v) => {
-      const next = !v;
-      if (next) bumpOpenCountAndMaybeClear(); // ✅ делаем это только при открытии
+    setIsSearchOpen((prev) => {
+      const next = !prev;
+      if (next) bumpOpenCountAndMaybeClear();
       return next;
     });
   };
-  
-  const cartCount = 0;
-
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const onAccountClick = () => {
     navigate(me ? "/account" : "/auth");
@@ -72,21 +84,22 @@ export default function SiteHeader({ brandText = "LebedI", onStart }: Props) {
     navigate("/cart");
   };
 
-  const { t, i18n } = useTranslation();
-
-  const viber: ViberLinks = {
-    iryna: "https://viber.com",
-    serhii: "https://viber.com",
-    group: "https://viber.com",
-  };
-
-  const closePopover = () => {
+  const closePopover = useCallback(() => {
     setOpenMenu(null);
     setAnchorRect(null);
-  };
+  }, []);
+
+  const closeAll = useCallback(() => {
+    setOpenMenu(null);
+    setAnchorRect(null);
+    setStartOpen(false);
+    setIsSearchOpen(false);
+    setMenuOpen(false);
+  }, []);
 
   const openPopover = (k: MenuKey, el: HTMLElement) => {
     const r = el.getBoundingClientRect();
+
     setAnchorRect({
       top: r.top,
       left: r.left,
@@ -96,7 +109,8 @@ export default function SiteHeader({ brandText = "LebedI", onStart }: Props) {
     });
 
     setOpenMenu((prev) => (prev === k ? null : k));
-    setViberOpen(false);
+    setStartOpen(false);
+    setMenuOpen(false);
   };
 
   useEffect(() => {
@@ -109,67 +123,52 @@ export default function SiteHeader({ brandText = "LebedI", onStart }: Props) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        setOpen(false);
-        setViberOpen(false);
-        closePopover();
-        setStartOpen(false);
+        closeAll();
       }
     };
+
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, []);
-
-  const closeAll = () => {
-    setOpen(false);
-    setViberOpen(false);
-    closePopover();
-    setStartOpen(false);
-  };
+  }, [closeAll]);
 
   const onLogout = () => {
-    // 1) убираем токены/сессию (подстрой под свои ключи)
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
-
-    // если ты хранишь что-то ещё:
     localStorage.removeItem("token");
     localStorage.removeItem("me");
 
-    // 2) закрываем попапы/меню
     closeAll();
-
-    // 3) уводим на вход и обновляем состояние (быстрый 100% вариант)
     navigate("/auth");
     window.location.reload();
   };
-  
+
   return (
     <>
       <header className={`header ${scrolled ? "header--solid" : ""}`}>
         <div className="header__inner">
-          <Link
-            className="brand"
-            to="/"
-            onClick={closeAll}
-            aria-label="На головну"
-          >
-            <span className="brand__badge">
-              <img
-                className="brand__logo"
-                src={logo}
-                alt=""
-              />
+        <Link
+          className="brand"
+          to="/"
+          onClick={closeAll}
+          aria-label="На головну"
+        >
+          <span className="brandLogo">
+            <img
+              src={logo}
+              alt="LebedI"
+              className="brandLogo__img"
+            />
+
+            <span className="brandName">
+              {brandName.slice(0, -1)}
+              <span className="brandAccent">
+                {brandName.slice(-1)}
+              </span>
             </span>
+          </span>
+        </Link>
 
-            <span className="brand__text">
-               {brandText}
-            </span>
-          </Link>
-
-
-          {/* NAV (desktop) */}
           <nav className="nav nav--desktop" aria-label="Навігація">
-            {/* Масаж — popover */}
             <button
               type="button"
               className="nav__btn"
@@ -178,7 +177,6 @@ export default function SiteHeader({ brandText = "LebedI", onStart }: Props) {
               {t("menu.massage")}
             </button>
 
-            {/* Тренування — popover */}
             <button
               type="button"
               className="nav__btn"
@@ -187,16 +185,14 @@ export default function SiteHeader({ brandText = "LebedI", onStart }: Props) {
               {t("menu.training")}
             </button>
 
-            {/* Трави — popover */}
             <button
               type="button"
               className="nav__btn"
-              onClick={(e) => openPopover("herbs", e.currentTarget)}
+              onClick={(e) => openPopover("collections", e.currentTarget)}
             >
               {t("menu.herbs")}
             </button>
 
-            {/* Остальные — обычные ссылки */}
             <NavLink to="/about" onClick={closeAll}>
               {t("menu.about")}
             </NavLink>
@@ -211,106 +207,46 @@ export default function SiteHeader({ brandText = "LebedI", onStart }: Props) {
 
             <NavLink
               to="/health-cards"
-              className={({ isActive }) => `navLink ${isActive ? "navLink--active" : ""}`}
+              className={({ isActive }) =>
+                `navLink ${isActive ? "navLink--active" : ""}`
+              }
+              onClick={closeAll}
             >
-               Карти здоров'я
+              Карти здоров&apos;я
             </NavLink>
 
             <NavLink to="/reviews" onClick={closeAll}>
               {t("menu.reviews")}
             </NavLink>
-            {/* “Map” — Modal */}
-            <button
-              type="button"
-              className="nav__btn"
-              onClick={() => {
-                setStartOpen(true);
-                closePopover();
-                setViberOpen(false);
-              }}
-            >
-              {t("menu.start")}
-            </button>
-            <div className="header__actions">
-              {!me ? (
-                <Link className="btn btn--primary" to="/auth" onClick={closeAll}>
-                  {t("menu.login")}
-                </Link>
-              ) : (
-                <>
-                  <Link className="btn btn--primary" to="/account" onClick={closeAll}>
-                    {t("menu.account")}
-                  </Link>
-
-                  <button className="btn btn--ghost" type="button" onClick={onLogout}>
-                    {t("menu.logout")}
-                  </button>
-
-                  {me.role === "admin" && (
-                    <Link className="btn btn--ghost" to="/admin/inbox" onClick={closeAll}>
-                      Адмін
-                    </Link>
-                  )}
-                </>
-              )}
-            </div>
-            <div className="langSwitch">
-              <button type="button" onClick={() => i18n.changeLanguage("uk")}>
-                UA
-              </button>
-              <button type="button" onClick={() => i18n.changeLanguage("ru")}>
-                RU
-              </button>
-              <button type="button" onClick={() => i18n.changeLanguage("en")}>
-                EN
-              </button>
-            </div>
-
-            {/* Viber dropdown */}
-            <div className="viberMenu" onMouseLeave={() => setViberOpen(false)}>
-              <button
-                className="btn btn--primary"
-                type="button"
-                aria-haspopup="menu"
-                aria-expanded={viberOpen}
-                onClick={() => {
-                  setViberOpen((v) => !v);
-                  closePopover();
-                }}
-              >
-                {t("menu.bookViber")} ▾
-              </button>
-
-              {viberOpen && (
-                <div className="viberMenu__dropdown" role="menu">
-                  <a role="menuitem" href={viber.iryna} target="_blank" rel="noreferrer">
-                    {t("viber.iryna")}
-                  </a>
-                  <a role="menuitem" href={viber.serhii} target="_blank" rel="noreferrer">
-                    {t("viber.serhii")}
-                  </a>
-                  <a role="menuitem" href={viber.group} target="_blank" rel="noreferrer">
-                    {t("viber.group")}
-                  </a>
-                </div>
-              )}
-            </div>
           </nav>
 
-          {/* burger */}
-         {/* RIGHT: icons + burger */}
           <div className="header__right">
             <div className="headerActions">
-              <button className="iconBtn" type="button" onClick={onSearchToggle} aria-label="Search">
+              <button
+                className="iconBtn"
+                type="button"
+                onClick={onSearchToggle}
+                aria-label="Пошук"
+              >
                 <IconSearch />
               </button>
 
-              <button className="iconBtn" type="button" onClick={onCartClick} aria-label="Cart">
+              <button
+                className="iconBtn"
+                type="button"
+                onClick={onCartClick}
+                aria-label="Кошик"
+              >
                 <IconCart />
                 {cartCount > 0 && <span className="badge">{cartCount}</span>}
               </button>
 
-              <button className="iconBtn" type="button" onClick={onAccountClick} aria-label="Account">
+              <button
+                className="iconBtn"
+                type="button"
+                onClick={onAccountClick}
+                aria-label="Кабінет"
+              >
                 <IconUser />
               </button>
             </div>
@@ -319,11 +255,10 @@ export default function SiteHeader({ brandText = "LebedI", onStart }: Props) {
               className="burger"
               type="button"
               aria-label="Відкрити меню"
-              aria-expanded={open}
+              aria-expanded={menuOpen}
               onClick={() => {
-                setOpen((v) => !v);
+                setMenuOpen((prev) => !prev);
                 closePopover();
-                setViberOpen(false);
                 setStartOpen(false);
               }}
             >
@@ -334,62 +269,81 @@ export default function SiteHeader({ brandText = "LebedI", onStart }: Props) {
           </div>
         </div>
 
-        {/* mobile drawer */}
-        {open && (
-          <div className="drawer" role="dialog" aria-modal="true">
-            <div className="drawer__panel">
-              ...
-            </div>
-            <div className="drawer__backdrop" onClick={closeAll} />
-          </div>
-        )}
-
-        {/* popover поиска */}
-      <SearchPopover
-        open={isSearchOpen}
-        onClose={() => setIsSearchOpen(false)}
-        lang={i18n.language === "ru" ? "ru" : "ua"}
-      />
-      <button className="iconBtn" type="button" onClick={onSearchToggle} aria-label="Search">
-        <IconSearch />
-      </button>
+        <SearchPopover
+          open={isSearchOpen}
+          onClose={() => setIsSearchOpen(false)}
+          lang={i18n.language === "ru" ? "ru" : "ua"}
+        />
       </header>
-      {/* POPUP: Масаж */}
-      <Popover open={openMenu === "massage"} onClose={closePopover} anchorRect={anchorRect}>
+
+      <SideMenuDrawer
+        open={menuOpen}
+        onClose={() => setMenuOpen(false)}
+        me={me}
+        onLogout={onLogout}
+        onOpenMap={() => {
+          setStartOpen(true);
+          setMenuOpen(false);
+        }}
+        onOpenSearch={() => {
+          setIsSearchOpen(true);
+        }}
+        onChangeLanguage={(lang: "uk" | "ru" | "en") => {
+          void i18n.changeLanguage(lang);
+        }}
+        viberUrl={viber.iryna}
+      />
+      <Popover
+        open={openMenu === "massage"}
+        onClose={closePopover}
+        anchorRect={anchorRect}
+      >
         <div className="mega__grid">
           <div className="mega__col">
             <div className="mega__title">{t("menu.massage")}</div>
 
             <Link className="mega__item" to="/massage" onClick={closeAll}>
               <div className="mega__itemTitle">Види масажу</div>
-              <div className="mega__itemDesc">Релакс / лікувальний / спортивний…</div>
+              <div className="mega__itemDesc">
+                Релакс, лікувальний, спортивний
+              </div>
             </Link>
 
             <Link className="mega__item" to="/massage" onClick={closeAll}>
               <div className="mega__itemTitle">Кому підходить</div>
-              <div className="mega__itemDesc">Спина, шия, напруга, відновлення</div>
+              <div className="mega__itemDesc">
+                Спина, шия, напруга, відновлення
+              </div>
             </Link>
           </div>
 
           <div className="mega__side">
             <div className="mega__sideTitle">Швидкий запис</div>
-            <a className="btn btn--primary" href={viber.iryna} target="_blank" rel="noreferrer">
-              Запис у Viber
+            <a
+              className="btn btn--primary"
+              href={viber.iryna}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Viber
             </a>
-            <div className="mega__sideNote">Поки веде на Viber. Потім — на форму.</div>
+            <div className="mega__sideNote">Швидкий зв&apos;язок для запису</div>
           </div>
         </div>
       </Popover>
 
-      {/* POPUP: Тренування (как Масаж) */}
-      <Popover open={openMenu === "training"} onClose={closePopover} anchorRect={anchorRect}>
+      <Popover
+        open={openMenu === "training"}
+        onClose={closePopover}
+        anchorRect={anchorRect}
+      >
         <div className="mega__grid">
           <div className="mega__col">
             <div className="mega__title">{t("menu.training")}</div>
 
             <Link className="mega__item" to="/training" onClick={closeAll}>
               <div className="mega__itemTitle">Формати</div>
-              <div className="mega__itemDesc">Індивідуально / групи / онлайн</div>
+              <div className="mega__itemDesc">Індивідуально, групи, онлайн</div>
             </Link>
 
             <Link className="mega__item" to="/training" onClick={closeAll}>
@@ -404,10 +358,9 @@ export default function SiteHeader({ brandText = "LebedI", onStart }: Props) {
               className="btn btn--primary"
               type="button"
               onClick={() => {
-                 // твои close/popover штуки если есть
+                closePopover();
                 onStart?.();
               }}
-              
             >
               Мапа
             </button>
@@ -416,34 +369,42 @@ export default function SiteHeader({ brandText = "LebedI", onStart }: Props) {
         </div>
       </Popover>
 
-      {/* POPUP: Трави (как Масаж) */}
-      <Popover open={openMenu === "herbs"} onClose={closePopover} anchorRect={anchorRect}>
+
+      <Popover
+        open={openMenu === "collections"}
+        onClose={closePopover}
+        anchorRect={anchorRect}
+      >
         <div className="mega__grid">
           <div className="mega__col">
-            <div className="mega__title">{t("menu.herbs")}</div>
+
+            <div className="mega__title">Добірки</div>
 
             <Link className="mega__item" to="/herbs" onClick={closeAll}>
-              <div className="mega__itemTitle">Авторські збори</div>
-              <div className="mega__itemDesc">Підбір під запит та сезон</div>
+              <div className="mega__itemTitle">Авторські добірки</div>
+              <div className="mega__itemDesc">
+                Трав’яні збори та індивідуальний підбір
+              </div>
             </Link>
 
-            <Link className="mega__item" to="/herbs" onClick={closeAll}>
+            <Link className="mega__item" to="/shop" onClick={closeAll}>
+              <div className="mega__itemTitle">Корисне</div>
+              <div className="mega__itemDesc">
+                Масла для тіла, добавки, товари для практики
+              </div>
+            </Link>
+
+            <Link className="mega__item" to="/herbs#order" onClick={closeAll}>
               <div className="mega__itemTitle">Як замовити</div>
-              <div className="mega__itemDesc">Доставка / самовивіз / консультація</div>
+              <div className="mega__itemDesc">
+                Доставка, самовивіз, консультація
+              </div>
             </Link>
-          </div>
 
-          <div className="mega__side">
-            <div className="mega__sideTitle">Замовити</div>
-            <a className="btn btn--primary" href={viber.group} target="_blank" rel="noreferrer">
-              Viber
-            </a>
-            <div className="mega__sideNote">Пізніше — кошик / форма</div>
           </div>
         </div>
       </Popover>
 
-      {/* MODAL Мапа */}
       <Modal
         open={startOpen}
         onClose={() => setStartOpen(false)}
@@ -451,12 +412,19 @@ export default function SiteHeader({ brandText = "LebedI", onStart }: Props) {
         overlayClassName="modal--map"
       >
         <StartMapModalContent
-          lang={(i18n.language === "ru" ? "ru" : i18n.language === "en" ? "en" : "uk")}
+          lang={
+            i18n.language === "ru"
+              ? "ru"
+              : i18n.language === "en"
+              ? "en"
+              : "uk"
+          }
         />
       </Modal>
     </>
   );
 }
+
 function IconUser() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
