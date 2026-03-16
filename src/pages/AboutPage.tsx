@@ -54,7 +54,7 @@ export default function AboutPage() {
 
           <div className="pageTop__actions">
             <Link className="btn btn--primary" to="/#about">
-              На блок головної →
+              На головну →
             </Link>
           </div>
         </div>

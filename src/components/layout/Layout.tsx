@@ -20,7 +20,7 @@ export default function Layout() {
 
   return (
     <div className="appShell">
-      <SiteHeader brandText="" onStart={() => setStartOpen(true)} />
+      <SiteHeader brandName="" onStart={() => setStartOpen(true)} />
       <FloatingCardsMenu />
       <main className="appContent">
         <Outlet />

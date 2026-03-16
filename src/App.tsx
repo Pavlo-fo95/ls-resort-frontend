@@ -15,6 +15,7 @@ import AboutPage from "./pages/AboutPage";
 import ReviewsPage from "./pages/ReviewsPage";
 
 import AdminInboxPage from "./pages/AdminInboxPage";
+import AdminDashboardPage from "./pages/AdminDashboardPage";
 import AccountPage from "./pages/AccountPage";
 import SchedulePage from "./pages/SchedulePage";
 import BlogListPage from "./pages/BlogListPage";
@@ -65,7 +66,7 @@ export default function App() {
           <Route path="/blog/:slug" element={<BlogPostPage />} />
 
           <Route path="/health-cards" element={<HealthCardsPage />} />
-          <Route
+  <Route
             path="/account"
             element={
               <RequireAuth>
@@ -78,14 +79,18 @@ export default function App() {
             path="/admin"
             element={
               <RequireAdmin>
-                <AdminInboxPage />
+                <AdminDashboardPage />
               </RequireAdmin>
             }
           />
 
           <Route
             path="/admin/inbox"
-            element={<Navigate to="/admin" replace />}
+            element={
+              <RequireAdmin>
+                <AdminInboxPage />
+              </RequireAdmin>
+            }
           />
 
           <Route path="*" element={<div style={{ padding: 24 }}>404</div>} />

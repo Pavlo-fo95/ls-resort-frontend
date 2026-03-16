@@ -2,6 +2,7 @@ import CallButton from "../components/ui/CallButton";
 import PageHero from "../components/sections/PageHero";
 import { phones, viberLinks } from "../config/contacts";
 import PageFrame from "../components/PageFrame";
+import { Link } from "react-router-dom";
 
 type Session = { day: string; time: string; title?: string; coach?: string };
 type Place = {
@@ -13,12 +14,11 @@ type Place = {
 
 const places: Place[] = [
   {
-    name: "КЛУБ ОМ (Дніпро)",
-    address: "вул. Троїцька 15/3",
+    name: "БЦ «КОНТИНЕНТ»",
+    address: "вул. Ніла Армстронга, 2D, 6 поверх, каб. 614",
     note: "Тренер: Сергій Сокуренко",
     sessions: [
-      { day: "ВТ", time: "12:15", title: "Йогатерапія / тренування", coach: "Сергій" },
-      { day: "СБ", time: "14:00", title: "Йогатерапія / тренування", coach: "Сергій" },
+      { day: "СБ", time: "12:15", title: "Йогатерапія / тренування", coach: "Сергій" },
     ],
   },
   {
@@ -26,9 +26,10 @@ const places: Place[] = [
     address: "вул. Ніла Армстронга, 2D, 6 поверх, каб. 614",
     note: "Тренер: Ірина Лебедь",
     sessions: [
-      { day: "ПН", time: "18:00", title: "Вечірня практика", coach: "Ірина" },
+      { day: "ПН", time: "18:30", title: "Вечірня практика", coach: "Ірина" },
+      { day: "ВТ", time: "12:15", title: "Йогатерапія / тренування", coach: "Ірина" },
       { day: "СР", time: "18:30", title: "Вечірня практика", coach: "Ірина" },
-      { day: "СБ", time: "14:00", title: "Групова практика", coach: "Ірина" },
+      { day: "СБ", time: "14:00", title: "Йогатерапія / тренування", coach: "Ірина" },
     ],
   },
 ];
@@ -94,7 +95,7 @@ export default function SchedulePage() {
           <div className="priceCard">
             <h2 className="priceCard__title">Вартість</h2>
             <p className="priceCard__lead">
-              💰 Тренування — <b>250/300 грн</b>
+              💰 Тренування — <b> 300 грн</b>
             </p>
             <p className="muted">
               Якщо сумніваєшся, який формат підійде — напиши в Viber: запит + зручні дні/час.
@@ -106,6 +107,9 @@ export default function SchedulePage() {
               </a>
               <CallButton phone={phones.serhii} className="btn" label="Call" />
             </div>
+            <Link className="btn" to="/">
+              ← На головну
+            </Link>
           </div>
         </section>
       </main>

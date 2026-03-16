@@ -83,18 +83,22 @@ export default function AccountPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // load me
+ // load me
   useEffect(() => {
     authApi
       .me()
       .then((u) => {
         setMe(u);
         localStorage.setItem("role", u.role);
+
+        if (u.role === "admin") {
+          navigate("/admin", { replace: true });
+        }
       })
       .catch((e: unknown) => {
         setErr(e instanceof Error ? e.message : "Помилка профілю");
       });
-  }, []);
+  }, [navigate]);
 
   const onLogout = () => {
     logout();
@@ -102,9 +106,11 @@ export default function AccountPage() {
     window.location.href = "/";
   };
 
-  const roleLabel = me?.role === "admin" ? t("account.admin") : t("account.client");
-  const roleClass =
-    me?.role === "admin" ? "roleBadge roleBadge--coral" : "roleBadge roleBadge--blue";
+const roleLabel = me?.role === "admin" ? t("account.admin") : t("account.client");
+const roleClass =
+  me?.role === "admin"
+    ? "roleBadge roleBadge--coral"
+    : "roleBadge roleBadge--blue";
 
   // chart data
 const pvData = useMemo(() => {
@@ -194,7 +200,6 @@ const pvData = useMemo(() => {
                 </div>
               </div>
             </div>
-
             <div className="card__foot">
               <button className="btn btn--primary" onClick={() => navigate("/about#contacts")}>
                 {t("account.writeToStudio")}
@@ -203,12 +208,6 @@ const pvData = useMemo(() => {
               <button className="btn btn--ghost" onClick={() => navigate("/cart")}>
                 {t("account.subscriptions")}
               </button>
-
-              {me?.role === "admin" && (
-                <button className="btn btn--ghost" onClick={() => navigate("/admin/inbox")}>
-                  {t("account.adminInbox")}
-                </button>
-              )}
             </div>
           </section>
 

@@ -22,6 +22,8 @@
   "account": {
     "title": "Account",
     "subtitle": "Your profile, bookings and messages will appear here.",
+    "admin": "Admin",
+    "client": "Client",
     "home": "Home",
     "logout": "Logout",
     "profile": "Profile",
@@ -99,6 +101,7 @@
     "contactsTitle": "Contacts",
     "socialTitle": "Social media",
     "addressNote": "Neil Armstrong St., 2D, 6th floor, room 614, BC \"CONTINENT\", Dnipro, Ukraine",
+    "websiteNote": "Website by Pavlova Alla.",
     "rights": "All rights reserved."
   }
 }

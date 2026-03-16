@@ -173,9 +173,7 @@ const url = `${API}/api/reviews?limit=100&only_published=${showAll ? "false" : "
             <Link className="btn" to="/#reviews">
               На блок головної →
             </Link>
-            <Link className="btn" to="/">
-              ← Головна
-            </Link>
+            
           </div>
         </div>
 

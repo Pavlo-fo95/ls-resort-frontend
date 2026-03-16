@@ -89,7 +89,7 @@ export default function SiteFooter() {
 
       <div className="footer__bottom">
         <span>
-          © {year} {brandName}. {t("footer.rights")}
+          © {year} {brandName}. {t("footer.rights")} {t("footer.websiteNote")}
         </span>
       </div>
 
